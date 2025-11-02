@@ -8,13 +8,13 @@
 
             <div class="mb-4">
                 <label class="block text-gray-700 mb-1">Keterangan</label>
-                <input type="text" name="keterangan" value="{{ old('keterangan', $jadwal->keterangan) }}" required
-                    class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-posyanduu">
+                <input type="text" name="keterangan" placeholder="{{ old('keterangan', $jadwal->keterangan) }}" required
+                    class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-posyanduu ">
             </div>
 
             <div class="mb-4">
                 <label class="block text-gray-700 mb-1">Lokasi</label>
-                <input type="text" name="lokasi" value="{{ old('lokasi', $jadwal->lokasi) }}" required
+                <input type="text" name="lokasi" placeholder="{{ old('lokasi', $jadwal->lokasi) }}" required
                     class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-posyanduu">
             </div>
 
