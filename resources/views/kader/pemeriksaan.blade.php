@@ -26,13 +26,13 @@
             underlineLeft: 0,
             underlineWidth: 0,
             updateUnderline($el) {
-                this.underlineLeft = $el.offsetLeft;
-                this.underlineWidth = $el.offsetWidth;
+                if ($el) {
+                    this.underlineLeft = $el.offsetLeft;
+                    this.underlineWidth = $el.offsetWidth;
+                }
             }
-        }" x-init="$nextTick(() => {
-            const tab = new URLSearchParams(window.location.search).get('tab') || 'pemeriksaan';
-            updateUnderline($refs[tab + 'Tab']);
-        })" class="bg-white rounded-xl card-shadow mb-6 p-4">
+        }" x-init="setTimeout(() => { updateUnderline($refs[activeTab + 'Tab']); }, 50)" class="bg-white rounded-xl card-shadow mb-6 p-4">
+
 
             <nav class="flex -mb-px justify-start relative border-b border-gray-200">
                 <!-- Tab Pemeriksaan -->

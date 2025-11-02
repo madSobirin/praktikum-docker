@@ -7,6 +7,7 @@ use App\Models\Balita;
 use App\Models\IbuHamil;
 use App\Models\Pemeriksaan;
 use Illuminate\Http\Request;
+use App\Models\JadwalPosyandu;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -29,6 +30,9 @@ class DashboardController extends Controller
             "totalIbuHamil" => IbuHamil::count(),
             "totalKondisiBaik" => Pemeriksaan::where("status_ibu", "Kondisi Baik")->count(),
             "totalKondisiAnemia" => Pemeriksaan::where("status_ibu", "Anemia")->count(),
+
+            //jadwal
+            "jadwals" => JadwalPosyandu::all(),
         ]);
     }
 

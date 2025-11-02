@@ -73,54 +73,50 @@
             </div>
 
             <div class="space-y-4">
-                <div class="flex items-center p-3 border border-gray-200 rounded-lg">
-                    <div class="bg-posyandu text-white rounded-lg w-12 h-12 flex flex-col items-center justify-center">
-                        <span class="font-bold">25</span>
-                    </div>
-                    <div class="ml-4 flex-1">
-                        <h3 class="font-medium">
-                            Posyandu Balita Rutin
-                        </h3>
-                        <p class="text-sm text-gray-600">
-                            08:00 - 12:00 • Balai Desa
-                        </p>
-                    </div>
-                    <button class="text-posyandu hover:text-posyanduDark text-sm">
-                        Detail
-                    </button>
-                </div>
+                @forelse ($jadwals as $jadwal)
+                    <div class="flex items-center p-4 border border-gray-200 rounded-lg mt-4">
+                        <!-- Kotak tanggal -->
+                        <div
+                            class="bg-posyanduu text-white rounded-lg w-12 h-12 flex flex-col items-center justify-center">
+                            <span class="font-bold">
+                                {{ \Carbon\Carbon::parse($jadwal->waktu_mulai)->format('d') }}
+                            </span>
+                        </div>
 
-                <div class="flex items-center p-3 border border-gray-200 rounded-lg">
-                    <div class="bg-success text-white rounded-lg w-12 h-12 flex flex-col items-center justify-center">
-                        <span class="font-bold">27</span>
-                    </div>
-                    <div class="ml-4 flex-1">
-                        <h3 class="font-medium">Kelas Ibu Hamil</h3>
-                        <p class="text-sm text-gray-600">
-                            13:00 - 15:00 • Aula Posyandu
-                        </p>
-                    </div>
-                    <button class="text-posyandu hover:text-posyanduDark text-sm">
-                        Detail
-                    </button>
-                </div>
+                        <!-- Informasi jadwal -->
+                        <div class="ml-4 flex-1">
+                            <h3 class="font-medium">{{ $jadwal->keterangan }}</h3>
+                            <p class="text-sm text-gray-600">
+                                {{ \Carbon\Carbon::parse($jadwal->waktu_mulai)->format('H:i') }}
+                                -
+                                {{ \Carbon\Carbon::parse($jadwal->waktu_selesai)->format('H:i') }}
+                                • {{ $jadwal->lokasi }}
+                            </p>
+                        </div>
 
-                <div class="flex items-center p-3 border border-gray-200 rounded-lg">
-                    <div class="bg-warning text-white rounded-lg w-12 h-12 flex flex-col items-center justify-center">
-                        <span class="font-bold">02</span>
+                        <!-- Tombol aksi -->
+                        <div class="flex space-x-2">
+                            <a href="{{ route('jadwal.edit', $jadwal->id) }}"
+                                class="text-posyanduu hover:text-posyanduDark">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <form action="{{ route('jadwal.destroy', $jadwal->id) }}" method="POST"
+                                onsubmit="return confirm('Yakin ingin hapus jadwal ini?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-danger hover:text-red-600">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
                     </div>
-                    <div class="ml-4 flex-1">
-                        <h3 class="font-medium">
-                            Imunisasi Campak
-                        </h3>
-                        <p class="text-sm text-gray-600">
-                            09:00 - 14:00 • Puskesmas
-                        </p>
+                @empty
+                    <div class="text-center text-gray-500 mt-10">
+                        <i class="fa-solid fa-calendar-xmark text-4xl mb-2"></i>
+                        <p class="text-lg font-medium">Belum ada jadwal posyandu.</p>
+                        <p class="text-sm">Silakan tambahkan jadwal baru untuk ditampilkan di sini.</p>
                     </div>
-                    <button class="text-posyandu hover:text-posyanduDark text-sm">
-                        Detail
-                    </button>
-                </div>
+                @endforelse
             </div>
         </div>
     </main>

@@ -27,23 +27,17 @@ class JadwalPosyanduController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'keterangan' => 'required|string|max:255',
             'lokasi' => 'required|string|max:255',
             'waktu_mulai' => 'required|date',
             'waktu_selesai' => 'required|date|after:waktu_mulai',
         ]);
 
-        JadwalPosyandu::create([
-            'keterangan' => $request->keterangan,
-            'lokasi' => $request->lokasi,
-            'waktu_mulai' => Carbon::parse($request->waktu_mulai),
-            'waktu_selesai' => Carbon::parse($request->waktu_selesai),
-        ]);
-
+        JadwalPosyandu::create($validated);
         return redirect()->route('pemeriksaan.index', ['tab' => 'jadwal'])->with('success', 'Jadwal berhasil ditambahkan!');
     }
-
+    
     /**
      * Form edit jadwal.
      */
