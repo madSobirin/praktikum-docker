@@ -80,6 +80,13 @@ class PemeriksaanController extends Controller
         return redirect()->route('pemeriksaan.index')->with('success', 'Data pemeriksaan berhasil ditambahkan.');
     }
 
+    // Tampilkan detail pemeriksaan
+    public function show($id)
+    {
+        $pemeriksaan = Pemeriksaan::with(['balita', 'ibu_hamil'])->findOrFail($id);
+        return view('kader.detail-pemeriksaan', compact('pemeriksaan'));
+    }
+
 
 
     // Hapus pemeriksaan

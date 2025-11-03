@@ -46,6 +46,8 @@ Route::get('/pemeriksaan', [PemeriksaanController::class, 'index'])->name('pemer
 Route::get('/pemeriksaan/create', [PemeriksaanController::class, 'create'])->name('pemeriksaan.create');
 Route::post('/pemeriksaan/store', [PemeriksaanController::class, 'store'])->name('pemeriksaan.store');
 Route::get('/pemeriksaan/search', [PemeriksaanController::class, 'searchPeserta'])->name('pemeriksaan.search');
+Route::get('/pemeriksaan/show/{id}', [PemeriksaanController::class, 'show'])->name('pemeriksaan.show');
+
 
 // Hapus pemeriksaan
 Route::delete('/pemeriksaan/{id}', [PemeriksaanController::class, 'destroy'])->name('pemeriksaan.destroy');

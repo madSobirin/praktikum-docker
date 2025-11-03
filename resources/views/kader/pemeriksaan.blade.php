@@ -109,10 +109,12 @@
                                             @endif
                                         </td>
                                         <td class="px-4 py-3 text-center text-base flex justify-center gap-2">
-                                            <button class="text-posyanduu hover:text-posyanduDark"><i
-                                                    class="fas fa-eye"></i></button>
-                                            <button class="text-warning hover:text-yellow-600"><i
-                                                    class="fas fa-edit"></i></button>
+                                            <a href="{{ route('pemeriksaan.show', $p->id) }}"
+                                                class="text-blue-600 hover:text-blue-800">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="#" class="text-warning hover:text-yellow-600"><i
+                                                    class="fas fa-edit"></i></a>
                                             <form action="{{ route('pemeriksaan.destroy', $p->id) }}" method="POST"
                                                 class="inline">
                                                 @csrf
