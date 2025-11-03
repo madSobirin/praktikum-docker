@@ -45,6 +45,60 @@ class PesertaController extends Controller
 
         return redirect()->route('view.data')->with('success', 'Data peserta berhasil ditambahkan.');
     }
+
+    public function edit($kategori, $id)
+    {
+        if ($kategori === 'balita') {
+            $data = Balita::findOrFail($id);
+        } elseif ($kategori === 'ibu_hamil') {
+            $data = IbuHamil::findOrFail($id);
+        } else {
+            return redirect()->back()->with('error', 'Kategori tidak valid!');
+        }
+
+        return view('kader.edit-data', compact('data', 'kategori'));
+    }
+
+    public function update(Request $request, $kategori, $id)
+    {
+        $kategori = $request->kategori; // pastikan kategori dikirim dari form hidden
+        if (!$kategori) {
+            return redirect()->back()->with('error', 'Kategori tidak ditemukan!');
+        }
+
+        if ($kategori === 'balita') {
+            $validated = $request->validate([
+                'nik' => 'required|string|max:20|unique:balitas,nik,' . $id,
+                'nama_balita' => 'required|string|max:100',
+                'usia_tahun' => 'required|integer|min:0',
+                'usia_bulan' => 'nullable|integer|min:0|max:11',
+                'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+                'alamat' => 'required|string|max:255',
+                'nama_orang_tua' => 'required|string|max:100',
+            ]);
+
+            $data = Balita::findOrFail($id);
+            $data->update($validated);
+
+        } elseif ($kategori === 'ibu_hamil') {
+            $validated = $request->validate([
+                'nik_ibu_hamil' => 'required|string|max:20|unique:ibu_hamils,nik_ibu_hamil,' . $id,
+                'nama_ibu_hamil' => 'required|string|max:100',
+                'nama_suami' => 'required|string|max:100',
+                'umur' => 'required|integer|min:15|max:60',
+                'alamat_ibu_hamil' => 'required|string|max:255',
+            ]);
+
+            $data = IbuHamil::findOrFail($id);
+            $data->update($validated);
+        } else {
+            return redirect()->back()->with('error', 'Kategori tidak valid!');
+        }
+
+        return redirect()->route('view.data')->with('success', 'Data peserta berhasil diupdate.');
+    }
+
+
     public function destroy($kategori, $id)
     {
         if ($kategori === 'ibu_hamil') {

@@ -3,9 +3,7 @@
 use App\Http\Controllers\ViewData;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\BalitaController;
 use App\Http\Controllers\PesertaController;
-use App\Http\Controllers\IbuHamilController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PemeriksaanController;
 use App\Http\Controllers\JadwalPosyanduController;
@@ -31,6 +29,11 @@ Route::middleware(['auth', 'role:pengguna'])->prefix('pengguna')->group(function
 });
 // Menampilkan Data Peserta yang Terdaftar ya
 Route::get('/data', [ViewData::class, 'index'])->name('view.data');
+
+// Update data
+Route::get('/peserta/edit/{kategori}/{id}', [PesertaController::class, 'edit'])->name('peserta.edit');
+Route::put('/peserta/update/{kategori}/{id}', [PesertaController::class, 'update'])->name('peserta.update');
+
 
 // form input data
 Route::get('/data/tambah', [PesertaController::class, 'create'])->name('peserta.create');

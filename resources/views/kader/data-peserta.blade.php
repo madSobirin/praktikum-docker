@@ -78,8 +78,8 @@
                                         <td class="py-4">{{ $balita->nama_orang_tua }}</td>
                                         <td class="py-4 text-center">
                                             <div class="flex space-x-2">
-                                                {{-- <a href="{{ route('ibu.edit', $ibu->id) }}" --}}
-                                                <a href="#" class="text-warning hover:text-yellow-600">
+                                                <a href="{{ route('peserta.edit', ['kategori' => 'balita', 'id' => $balita->id]) }}"
+                                                    class="text-warning hover:text-yellow-600">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
 
@@ -183,7 +183,8 @@
                                         <td class="py-4">{{ $ibu->alamat_ibu_hamil }}</td>
                                         <td class="py-4 text-center">
                                             <div class="flex space-x-2">
-                                                <a href="#" class="text-warning hover:text-yellow-600">
+                                                <a href="{{ route('peserta.edit', ['kategori' => 'ibu_hamil', 'id' => $ibu->id]) }}"
+                                                    class="text-warning hover:text-yellow-600">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
 
