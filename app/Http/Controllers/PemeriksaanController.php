@@ -7,6 +7,7 @@ use App\Models\IbuHamil;
 use App\Models\Pemeriksaan;
 use Illuminate\Http\Request;
 use App\Models\JadwalPosyandu;
+use Illuminate\Support\Facades\Auth;
 
 class PemeriksaanController extends Controller
 {
@@ -14,7 +15,7 @@ class PemeriksaanController extends Controller
     {
         // ambil data jadwal
         $jadwals = JadwalPosyandu::all();
-        $pemeriksaans = Pemeriksaan::with(['balita', 'ibu_hamil'])->get();
+        $pemeriksaans = Pemeriksaan::where('user_id', Auth::id())->get();
         return view('kader.pemeriksaan', compact('pemeriksaans', 'jadwals'));
     }
     public function create()
@@ -75,6 +76,8 @@ class PemeriksaanController extends Controller
 
         unset($validated['peserta_id']);
 
+        $validated['user_id'] = Auth::id();
+
         Pemeriksaan::create($validated);
 
         return redirect()->route('pemeriksaan.index')->with('success', 'Data pemeriksaan berhasil ditambahkan.');
@@ -93,7 +96,7 @@ class PemeriksaanController extends Controller
         return view('kader.edit-pemeriksaan', compact('pemeriksaan'));
     }
 
-     public function update(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $validated = $request->validate([
             'tanggal' => 'required|date',

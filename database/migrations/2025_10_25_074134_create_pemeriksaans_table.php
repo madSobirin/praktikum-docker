@@ -9,6 +9,8 @@ return new class extends Migration {
     {
         Schema::create('pemeriksaans', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+
             $table->enum('tipe', ['balita', 'ibu_hamil']);
             $table->unsignedBigInteger('balita_id')->nullable();
             $table->unsignedBigInteger('ibu_hamil_id')->nullable();
