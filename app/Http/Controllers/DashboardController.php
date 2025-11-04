@@ -6,7 +6,6 @@ use App\Models\Balita;
 
 use App\Models\IbuHamil;
 use App\Models\Pemeriksaan;
-use Illuminate\Http\Request;
 use App\Models\JadwalPosyandu;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,16 +19,29 @@ class DashboardController extends Controller
             "user" => Auth::user(),
 
             // Total Balita 
-            "totalBalita" => Balita::count(),
+            "totalBalita" => Balita::where('user_id', Auth::id())->get(),
             // Chart
-            "totalGiziBaik" => Pemeriksaan::where("status_gizi", "Gizi Baik")->count(),
-            "totalGiziBuruk" => Pemeriksaan::where("status_gizi", "Gizi Buruk")->count(),
-            "totalStunting" => Pemeriksaan::where("status_gizi", "Stunting")->count(),
+            "totalGiziBaik" => Pemeriksaan::where("user_id", Auth::id())
+                ->where("status_gizi", "Gizi Baik")
+                ->count(),
+
+            "totalGiziBuruk" => Pemeriksaan::where("user_id", Auth::id())
+                ->where("status_gizi", "Gizi Buruk")
+                ->count(),
+
+            "totalStunting" => Pemeriksaan::where("user_id", Auth::id())
+                ->where("status_gizi", "Stunting")
+                ->count(),
 
             // Chart
-            "totalIbuHamil" => IbuHamil::count(),
-            "totalKondisiBaik" => Pemeriksaan::where("status_ibu", "Kondisi Baik")->count(),
-            "totalKondisiAnemia" => Pemeriksaan::where("status_ibu", "Anemia")->count(),
+            "totalIbuHamil" => IbuHamil::where("user_id", Auth::id())->get(),
+            "totalKondisiBaik" => Pemeriksaan::where("user_id", Auth::id())
+                ->where("status_ibu", "Kondisi Baik")
+                ->count(),
+
+            "totalKondisiAnemia" => Pemeriksaan::where("user_id", Auth::id())
+                ->where("status_ibu", "Anemia")
+                ->count(),
 
             //jadwal
             "jadwals" => JadwalPosyandu::all(),

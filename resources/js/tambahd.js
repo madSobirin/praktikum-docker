@@ -3,10 +3,7 @@ const formBalita = document.getElementById("form-balita");
 const formIbuHamil = document.getElementById("form-ibu-hamil");
 const kategoriHidden = document.getElementById("kategori_hidden");
 
-kategori.addEventListener("change", (e) => {
-    const value = e.target.value;
-    kategoriHidden.value = value;
-
+function toggleForm(value) {
     if (value === "balita") {
         formBalita.classList.remove("hidden");
         formIbuHamil.classList.add("hidden");
@@ -17,4 +14,16 @@ kategori.addEventListener("change", (e) => {
         formBalita.classList.add("hidden");
         formIbuHamil.classList.add("hidden");
     }
+}
+
+kategori.addEventListener("change", (e) => {
+    const value = e.target.value;
+    kategoriHidden.value = value;
+    toggleForm(value);
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const oldKategori = kategori.value;
+    kategoriHidden.value = oldKategori;
+    toggleForm(oldKategori);
 });

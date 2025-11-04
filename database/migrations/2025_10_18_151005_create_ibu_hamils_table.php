@@ -9,6 +9,7 @@ return new class extends Migration {
     {
         Schema::create('ibu_hamils', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('nik_ibu_hamil', 20)->unique();
             $table->string('nama_ibu_hamil');
             $table->string('nama_suami');
@@ -20,6 +21,10 @@ return new class extends Migration {
 
     public function down(): void
     {
+        Schema::table('ibu_hamils', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
+            $table->dropColumn('user_id');
+        });
         Schema::dropIfExists('ibu_hamils');
     }
 };

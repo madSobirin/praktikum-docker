@@ -5,15 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Balita;
 use App\Models\IbuHamil;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PesertaController extends Controller
 {
     public function index()
     {
-        $balitas = Balita::all();
-        $ibu_hamils = IbuHamil::all();
+        // $balitas = Balita::all();
+        // $ibu_hamils = IbuHamil::all();
         $totalBalita = Balita::count();
         $totalIbuHamil = IbuHamil::count();
+        $balitas = Balita::where('user_id', Auth::id())->get();
+        $ibu_hamils = IbuHamil::where('user_id', Auth::id())->get();
+
         return view('kader.data-peserta', compact('balitas', 'ibu_hamils', 'totalBalita', 'totalIbuHamil'));
 
     }
@@ -35,6 +39,7 @@ class PesertaController extends Controller
                 'alamat' => 'required|string|max:255',
                 'nama_orang_tua' => 'required|string|max:100',
             ]);
+            $validated['user_id'] = Auth::id();
 
             Balita::create($validated);
 
@@ -46,6 +51,7 @@ class PesertaController extends Controller
                 'umur' => 'required|integer|min:15|max:60',
                 'alamat_ibu_hamil' => 'required|string|max:255',
             ]);
+            $validated['user_id'] = Auth::id();
 
             IbuHamil::create($validated);
         } else {

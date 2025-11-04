@@ -27,10 +27,12 @@
                     <select id="kategori" name="kategori"
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-button focus:border-transparent"
                         required>
-                        <option value="">-- Pilih Kategori --</option>
-                        <option value="balita">Balita</option>
-                        <option value="ibu_hamil">Ibu Hamil</option>
+                        <option value="" selected>-- Pilih Kategori --</option>
+                        <option value="balita" {{ old('kategori') == 'balita' ? 'selected' : '' }}>Balita</option>
+                        <option value="ibu_hamil" {{ old('kategori') == 'ibu_hamil' ? 'selected' : '' }}>Ibu Hamil
+                        </option>
                     </select>
+
                 </div>
 
                 <!-- Form Balita -->
@@ -43,9 +45,12 @@
                                 <label for="nik" class="block text-sm font-medium text-gray-700 mb-2">
                                     NIK Balita <span class="text-red-500">*</span>
                                 </label>
-                                <input type="text" id="nik" name="nik"
+                                <input type="text" id="nik" name="nik" value="{{ old('nik') }}"
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-button focus:border-transparent"
                                     placeholder="Masukkan NIK balita">
+                                @error('nik')
+                                    <p class="text-red-500 text-sm mt-1">nik sudah terpakai</p>
+                                @enderror
                             </div>
 
                             <!-- Nama Balita -->
@@ -131,8 +136,13 @@
                                     NIK Ibu Hamil <span class="text-red-500">*</span>
                                 </label>
                                 <input type="text" id="nik_ibu_hamil" name="nik_ibu_hamil"
+                                    value="{{ old('nik_ibu_hamil') }}"
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-button focus:border-transparent"
                                     placeholder="Masukkan NIK ibu hamil">
+                                @error('nik_ibu_hamil')
+                                    <p class="text-red-500 text-sm mt-1">nik sudah terpakai</p>
+                                @enderror
+
                             </div>
 
                             <!-- Nama Ibu Hamil -->

@@ -11,7 +11,7 @@
                     </div>
                     <div class="ml-4">
                         <p class="text-gray-500 text-sm">Total Balita</p>
-                        <h3 class="text-2xl font-bold">{{ $totalBalita }}</h3>
+                        <h3 class="text-2xl font-bold">{{ count($totalBalita) }}</h3>
                     </div>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                     </div>
                     <div class="ml-4">
                         <p class="text-gray-500 text-sm">Ibu Hamil</p>
-                        <h3 class="text-2xl font-bold">{{ $totalIbuHamil }}</h3>
+                        <h3 class="text-2xl font-bold">{{ count($totalIbuHamil) }}</h3>
                     </div>
                 </div>
             </div>

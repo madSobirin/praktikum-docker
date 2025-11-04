@@ -121,7 +121,7 @@
                 <!-- Pagination -->
                 <div class="mt-6 flex flex-col md:flex-row justify-between items-center">
                     <p class="text-sm text-gray-600 mb-4 md:mb-0">
-                        Menampilkan {{ $totalBalita }} dari 142 data balita
+                        Menampilkan {{ $balitas->count() }} dari 142 data balita
                     </p>
                     <div class="flex space-x-2">
                         <button class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-gray-100">
@@ -218,7 +218,7 @@
                 <!-- Pagination -->
                 <div class="mt-6 flex flex-col md:flex-row justify-between items-center">
                     <p class="text-sm text-gray-600 mb-4 md:mb-0">
-                        Menampilkan <span>{{ $totalIbuHamil }}</span> dari 28 data ibu hamil
+                        Menampilkan <span>{{ $ibu_hamils->count() }}</span> dari 28 data ibu hamil
                     </p>
                     <div class="flex space-x-2">
                         <button class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-gray-100">
