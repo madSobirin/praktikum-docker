@@ -60,6 +60,19 @@ class PemeriksaanController extends Controller
             'status_ibu' => 'nullable|in:Kondisi Baik,Anemia',
         ]);
 
+        // Cek apakah sudah ada pemeriksaan untuk peserta ini
+        if ($request->tipe === 'balita') {
+            $cek = Pemeriksaan::where('balita_id', $request->peserta_id)->first();
+        } else {
+            $cek = Pemeriksaan::where('ibu_hamil_id', $request->peserta_id)->first();
+        }
+
+        if ($cek) {
+            return redirect()->route('pemeriksaan.index')->with('error', 'Peserta ini sudah memiliki data pemeriksaan!');
+            // return redirect()->route('pemeriksaan.index')->with('success', 'Data pemeriksaan berhasil ditambahkan.');
+
+        }
+
         if ($validated['tipe'] === 'balita') {
             $validated['balita_id'] = $validated['peserta_id'];
             $validated['ibu_hamil_id'] = null;

@@ -20,6 +20,28 @@
             </div>
         </div>
 
+        @if (session('success'))
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: '{{ session('success') }}',
+                    confirmButtonColor: '#70b2b2',
+                });
+            </script>
+        @endif
+
+        @if (session('error'))
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal!',
+                    text: '{{ session('error') }}',
+                    confirmButtonColor: '#e74c3c',
+                });
+            </script>
+        @endif
+
         <!-- Tabs -->
         <div x-data="{
             activeTab: new URLSearchParams(window.location.search).get('tab') || 'pemeriksaan',

@@ -3,8 +3,10 @@
         <!-- Header -->
         <div class="mb-6 flex justify-between items-center">
             <div>
-                <h1 class="text-2xl font-bold text-gray-800">Tambah Pemeriksaan</h1>
-                <p class="text-gray-600">Pilih tipe peserta dan isi form sesuai jenis pemeriksaan</p>
+                <h1 class="text-2xl font-bold text-gray-800"><i class="fas fa-plus-circle mr-3 text-posyanduu"></i>Tambah
+                    Pemeriksaan</h1>
+                <p class="text-gray-600"><i class="fas fa-info-circle mr-2 text-posyanduu"></i>Pilih tipe peserta dan isi
+                    form sesuai jenis pemeriksaan</p>
             </div>
             <div class="flex space-x-2">
                 <a href="{{ url('/pemeriksaan') }}"

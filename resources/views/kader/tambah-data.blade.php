@@ -3,8 +3,13 @@
         <!-- Header -->
         <div class="mb-6 flex justify-between items-center">
             <div>
-                <h1 class="text-2xl font-bold text-gray-800">Tambah Data Peserta</h1>
-                <p class="text-gray-600">Pilih kategori dan isi form sesuai jenis data peserta</p>
+
+                <h1 class="text-2xl font-bold text-gray-800"><i class="fas fa-plus-circle mr-3 text-posyanduu"></i>Tambah
+                    Data Peserta</h1>
+
+                <p class="text-gray-600"> <i class="fas fa-info-circle mr-2 text-posyanduu"></i>Pilih kategori dan isi
+                    form
+                    sesuai jenis data peserta</p>
             </div>
             <div class="flex space-x-2">
                 <a href="{{ url('/data') }}"
@@ -45,7 +50,7 @@
                                 <label for="nik" class="block text-sm font-medium text-gray-700 mb-2">
                                     NIK Balita <span class="text-red-500">*</span>
                                 </label>
-                                <input type="text" id="nik" name="nik" value="{{ old('nik') }}"
+                                <input type="text" id="nik" name="nik" value="{{ old('nik') }}" required
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-button focus:border-transparent"
                                     placeholder="Masukkan NIK balita">
                                 @error('nik')
@@ -60,7 +65,7 @@
                                 </label>
                                 <input type="text" id="nama_balita" name="nama_balita"
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-button focus:border-transparent"
-                                    placeholder="Masukkan nama lengkap balita">
+                                    placeholder="Masukkan nama lengkap balita" required>
                             </div>
 
                             <!-- Usia -->
@@ -74,14 +79,14 @@
                                         <input type="number" id="usia_tahun" name="usia_tahun" min="0"
                                             max="5"
                                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-button focus:border-transparent"
-                                            placeholder="0">
+                                            placeholder="0" required>
                                     </div>
                                     <div>
                                         <label for="usia_bulan" class="block text-xs text-gray-500 mb-1">Bulan</label>
                                         <input type="number" id="usia_bulan" name="usia_bulan" min="0"
                                             max="11"
                                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-button focus:border-transparent"
-                                            placeholder="0">
+                                            placeholder="0" required>
                                     </div>
                                 </div>
                             </div>
@@ -94,7 +99,7 @@
                                 <label for="jenis_kelamin" class="block text-sm font-medium text-gray-700 mb-2">
                                     Jenis Kelamin <span class="text-red-500">*</span>
                                 </label>
-                                <select id="jenis_kelamin" name="jenis_kelamin"
+                                <select id="jenis_kelamin" name="jenis_kelamin" required
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-button focus:border-transparent">
                                     <option value="">Pilih Jenis Kelamin</option>
                                     <option value="Laki-laki">Laki-laki</option>
@@ -109,7 +114,7 @@
                                 </label>
                                 <textarea id="alamat" name="alamat" rows="3"
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-button focus:border-transparent"
-                                    placeholder="Masukkan alamat lengkap"></textarea>
+                                    placeholder="Masukkan alamat lengkap" required></textarea>
                             </div>
 
                             <!-- Nama Orang Tua -->
@@ -119,7 +124,7 @@
                                 </label>
                                 <input type="text" id="nama_orang_tua" name="nama_orang_tua"
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-button focus:border-transparent"
-                                    placeholder="Masukkan nama orang tua">
+                                    placeholder="Masukkan nama orang tua" required>
                             </div>
                         </div>
                     </div>
@@ -138,11 +143,10 @@
                                 <input type="text" id="nik_ibu_hamil" name="nik_ibu_hamil"
                                     value="{{ old('nik_ibu_hamil') }}"
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-button focus:border-transparent"
-                                    placeholder="Masukkan NIK ibu hamil">
+                                    placeholder="Masukkan NIK ibu hamil" required>
                                 @error('nik_ibu_hamil')
                                     <p class="text-red-500 text-sm mt-1">nik sudah terpakai</p>
                                 @enderror
-
                             </div>
 
                             <!-- Nama Ibu Hamil -->
@@ -152,7 +156,7 @@
                                 </label>
                                 <input type="text" id="nama_ibu_hamil" name="nama_ibu_hamil"
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-button focus:border-transparent"
-                                    placeholder="Masukkan nama ibu hamil">
+                                    placeholder="Masukkan nama ibu hamil" required>
                             </div>
 
                             <!-- Nama Suami -->
@@ -162,7 +166,7 @@
                                 </label>
                                 <input type="text" id="nama_suami" name="nama_suami"
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-button focus:border-transparent"
-                                    placeholder="Masukkan nama suami">
+                                    placeholder="Masukkan nama suami" required>
                             </div>
                         </div>
 
@@ -175,7 +179,7 @@
                                 </label>
                                 <input type="number" id="umur" name="umur" min="15" max="60"
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-button focus:border-transparent"
-                                    placeholder="Masukkan umur ibu hamil">
+                                    placeholder="Masukkan umur ibu hamil" required>
                             </div>
 
                             <!-- Alamat -->
@@ -185,7 +189,7 @@
                                 </label>
                                 <textarea id="alamat_ibu_hamil" name="alamat_ibu_hamil" rows="3"
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-button focus:border-transparent"
-                                    placeholder="Masukkan alamat lengkap"></textarea>
+                                    placeholder="Masukkan alamat lengkap" required></textarea>
                             </div>
                         </div>
                     </div>
