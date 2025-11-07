@@ -69,20 +69,38 @@
 <!-- HEADER -->
 <header class="fixed top-0 left-0 right-0 bg-gray-100 shadow flex justify-between items-center md:pl-64">
     <!-- Tombol hamburger untuk mobile -->
-    <button id="menu-btn" class="md:hidden p-2 text-gray-600 ">
+    <button id="menu-btn" class="md:hidden p-2 text-gray-600 cursor-pointer">
         <i class="fa-solid fa-bars fa-xl"></i>
     </button>
-    <a href="{{ url('/profile') }}"
-        class="flex items-center space-x-2 ml-auto border-b border-white p-2 hover:bg-gray-50 transition rounded-lg">
-        <div class="flex items-center space-x-1">
-            <h1 class="text-md font-bold text-gray-600">
-                {{ ucfirst(Auth::user()->role) }}
-            </h1>
+    <div class="flex items-center space-x-2 ml-auto border-b border-white p-2 hover:bg-gray-50 transition rounded-lg">
+        <div class="relative">
+            <button id="profileDropdownBtn" class="flex items-center gap-2 focus:outline-none">
+                <div class="rounded-full w-10 h-10 bg-posyanduu flex items-center justify-center">
+                    <span class="font-bold text-white">
+                        {{ collect(explode(' ', Auth::user()->name))->map(fn($n) => strtoupper($n[0]))->join('') }}
+                    </span>
+                </div>
+
+                <div class="flex items-center space-x-1">
+                    <svg class="w-4 h-4 text-gray-600 cursor-pointer" fill="none" stroke="currentColor"
+                        stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+            </button>
+
+            <!-- Dropdown menu -->
+            <div id="profileDropdownMenu"
+                class="opacity-0 scale-95 pointer-events-none absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50 transform transition-all duration-200 ease-out">
+                <a href="{{ url('/profile') }}"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit"
+                        class="w-full text-left block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+                        Logout
+                    </button>
+                </form>
+            </div>
         </div>
-        <div class="rounded-full w-10 h-10 bg-posyanduu flex items-center justify-center">
-            <span class="font-bold text-white">
-                {{ collect(explode(' ', Auth::user()->name))->map(fn($n) => strtoupper($n[0]))->join('') }}
-            </span>
-        </div>
-    </a>
 </header>

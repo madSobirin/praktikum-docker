@@ -14,20 +14,20 @@
 
     {{-- Font Awesome --}}
     <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
-    @vite('resources/css/app.css')
-
+    {{-- @vite('resources/css/app.css') --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body class="bg-gray-100">
-    {{-- @dd{{ $totalGiziBaik }} --}}
     <x-sidebar />
     <main class="pt-16 md:pl-64">
         <div class="p-4">
             {{ $slot }}
         </div>
     </main>
+    {{-- Ini src chart --}}
+    {{-- @vite(['resources/js/app.js']) --}}
 </body>
-{{-- Ini src chart --}}
-@vite(['resources/js/app.js'])
 
 </html>

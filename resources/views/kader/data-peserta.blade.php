@@ -1,3 +1,4 @@
+{{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
 <x-app-main title="Data Peserta">
     <main class="ml-2 md:ml-2">
         <div class="mb-6 flex justify-between items-center">
@@ -17,7 +18,16 @@
 
             </div>
         </div>
-
+        @if (session('success'))
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: '{{ session('success') }}',
+                    confirmButtonColor: '#70b2b2',
+                });
+            </script>
+        @endif
         <!-- Tabs -->
         <div class="bg-white rounded-xl shadow-md mb-6">
             <div class="border-b border-gray-200">
