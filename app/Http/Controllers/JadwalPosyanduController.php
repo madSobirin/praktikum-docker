@@ -9,9 +9,9 @@ use Carbon\Carbon;
 class JadwalPosyanduController extends Controller
 {
 
-    public function show($id)
+    public function show($slug)
     {
-        $jadwal = JadwalPosyandu::findOrFail($id);
+        $jadwal = JadwalPosyandu::where('slug', $slug)->firstOrFail();
         return view('kader.jadwal.show', compact('jadwal'));
     }
 
@@ -29,11 +29,12 @@ class JadwalPosyanduController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'keterangan' => 'required|string|max:255',
+            'keterangan' => 'required|string|max:255|unique:jadwal_posyandus,keterangan',
             'lokasi' => 'required|string|max:255',
             'waktu_mulai' => 'required|date',
             'waktu_selesai' => 'required|date|after:waktu_mulai',
         ]);
+
 
         JadwalPosyandu::create($validated);
         return redirect()->route('pemeriksaan.index', ['tab' => 'jadwal'])->with('success', 'Jadwal berhasil ditambahkan!');

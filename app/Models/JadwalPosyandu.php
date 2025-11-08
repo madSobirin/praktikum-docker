@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class JadwalPosyandu extends Model
 {
@@ -12,4 +13,16 @@ class JadwalPosyandu extends Model
     protected $guarded = [
         'id',
     ];
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->slug = Str::slug($model->keterangan);
+        });
+
+        static::updating(function ($model) {
+            $model->slug = Str::slug($model->keterangan);
+        });
+    }
 }

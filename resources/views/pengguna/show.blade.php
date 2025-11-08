@@ -25,7 +25,7 @@
         <hr class="my-6">
 
         <!-- Tombol kembali -->
-        <a href="{{ route('kader.dashboard') }}"
+        <a href="{{ route('pengguna.dashboard') }}"
             class="flex justify-end items-center text-gray-600 hover:text-button mb-4">
             <i class="fa-solid fa-arrow-left mr-2"></i> Kembali ke Daftar Jadwal
         </a>

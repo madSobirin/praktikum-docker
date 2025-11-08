@@ -20,14 +20,23 @@ Route::post('/', [AuthController::class, 'login']);
 // logout
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Dashboard routes (sesuai role ya)
-Route::middleware(['auth', 'role:kader'])->prefix('kader')->group(function () {
+Route::middleware(['auth', 'role:kader'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'kader'])->name('kader.dashboard');
 });
 
-Route::middleware(['auth', 'role:pengguna'])->prefix('pengguna')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'pengguna'])->name('pengguna.dashboard');
+Route::middleware(['auth', 'role:pengguna'])->group(function () {
+    Route::get('/jadwall', [DashboardController::class, 'pengguna'])->name('pengguna.dashboard');
+    Route::get('/jadwall/{slug}', [DashboardController::class, 'show'])->name('pengguna.show');
 });
+// Route::get('/jadwal/{slug}', [DashboardController::class, 'showjadwal'])->name('jadwal.show');
+// Dashboard routes (sesuai role ya)
+// Route::middleware(['auth', 'role:kader'])->prefix('kader')->group(function () {
+//     Route::get('/dashboard', [DashboardController::class, 'kader'])->name('kader.dashboard');
+// });
+
+// Route::middleware(['auth', 'role:pengguna'])->prefix('pengguna')->group(function () {
+//     Route::get('/jadwall', [DashboardController::class, 'pengguna'])->name('pengguna.dashboard');
+// });
 // Menampilkan Data Peserta yang Terdaftar ya
 Route::get('/data', [PesertaController::class, 'index'])->name('view.data');
 
@@ -62,7 +71,9 @@ Route::get('/jadwal/{id}/edit', [JadwalPosyanduController::class, 'edit'])->name
 Route::put('/jadwal/{id}', [JadwalPosyanduController::class, 'update'])->name('jadwal.update');
 Route::delete('/jadwal/{id}', [JadwalPosyanduController::class, 'destroy'])->name('jadwal.destroy');
 
-Route::get('/jadwal/{id}', [JadwalPosyanduController::class, 'show'])->name('jadwal.show');
+Route::get('/jadwal/detail/{slug}', [JadwalPosyanduController::class, 'show'])->name('jadwal.show');
+
+// Route::get('/jadwal/{id}', [JadwalPosyanduController::class, 'show'])->name('jadwal.show');
 
 // buatkan view function 
 Route::get('/laporan', function () {

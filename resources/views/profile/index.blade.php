@@ -40,19 +40,22 @@
                             </a>
                         </nav>
                     </div>
-                    <div class="bg-white rounded-2xl shadow-sm p-6">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Statistik</h3>
-                        <div class="space-y-4">
-                            <div class="flex justify-between items-center">
-                                <span class="text-gray-600">Peserta Terdaftar</span>
-                                <span class="font-semibold text-indigo-600">{{ $totalPeserta }}</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-gray-600">Total Pemeriksaan</span>
-                                <span class="font-semibold text-indigo-600">{{ $pemeriksaans->count() }}</span>
+                    @if ($profiles->role == 'kader')
+                        <div class="bg-white rounded-2xl shadow-sm p-6">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Statistik</h3>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">Peserta Terdaftar</span>
+                                    <span class="font-semibold text-indigo-600">{{ $totalPeserta }}</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">Total Pemeriksaan</span>
+                                    <span class="font-semibold text-indigo-600">{{ $pemeriksaans->count() }}</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @else
+                    @endif
                 </div>
 
                 <!-- Main Content -->

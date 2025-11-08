@@ -76,10 +76,10 @@
                         </div>
 
                         <div class="flex space-x-2">
-                            <button onclick="showDetail({{ $jadwal->id }})"
+                            <a href="{{ route('jadwal.show', $jadwal->slug) }}"
                                 class="text-posyanduu font-normal cursor-pointer hover:text-gray-400 text-sm">
                                 Detail
-                            </button>
+                            </a>
                         </div>
                     </div>
                 @empty
@@ -96,32 +96,5 @@
             <h2 class="text-xl font-bold mb-4">Detail Jadwal</h2>
             <div id="detailContent" class="space-y-2 text-gray-700"></div>
         </div>
-
-        <script>
-            const dataJadwal = @json($jadwals);
-
-            function showDetail(id) {
-                const jadwal = dataJadwal.find(j => j.id === id);
-                if (jadwal) {
-                    document.getElementById('detailContent').innerHTML = `
-                <p><strong>Tanggal:</strong> ${new Date(jadwal.waktu_mulai).toLocaleDateString('id-ID')}</p>
-                <p><strong>Waktu:</strong> ${new Date(jadwal.waktu_mulai).toLocaleTimeString('id-ID')} - 
-                ${new Date(jadwal.waktu_selesai).toLocaleTimeString('id-ID')}</p>
-                <p><strong>Keterangan:</strong> ${jadwal.keterangan}</p>
-                <p><strong>Tempat:</strong> ${jadwal.lokasi ?? ''}</p>
-            `;
-
-                    // Tampilkan bagian detail
-                    const detailSection = document.getElementById('detailSection');
-                    detailSection.classList.remove('hidden');
-
-                    // Scroll ke bawah dengan halus ke bagian detail
-                    detailSection.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            }
-        </script>
     </main>
 </x-app-main>

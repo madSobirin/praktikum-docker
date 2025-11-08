@@ -50,9 +50,15 @@ class DashboardController extends Controller
 
     public function pengguna()
     {
-        return view("pengguna.dashboard", [
-            "title" => "Dashboard Pengguna",
-            "user" => Auth::user(),
-        ]);
+        // Carikan data jadwal 
+        $jadwals = JadwalPosyandu::all();
+        return view("pengguna.jadwal", [
+            "user" => Auth::user()
+        ], compact('jadwals'));
+    }
+    public function show($slug)
+    {
+        $jadwal = JadwalPosyandu::where('slug', $slug)->firstOrFail();
+        return view("pengguna.show", compact('jadwal'));
     }
 }

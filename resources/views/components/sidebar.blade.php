@@ -1,6 +1,8 @@
 <!-- SIDEBAR -->
 <aside id="sidebar"
     class="fixed top-0 left-0 w-64 h-screen bg-posyanduDark text-white transform -translate-x-full md:translate-x-0 transition-transform duration-300 z-40">
+
+    <!-- Header logo -->
     <div class="p-4 border-b border-white">
         <div class="flex items-center space-x-3">
             <img src="{{ asset('img/elsimil.png') }}" alt="logo Sipos" class="w-13 h-13 object-contain">
@@ -9,6 +11,7 @@
         <p class="text-white text-sm tracking-wide">Sistem Informasi Posyandu</p>
     </div>
 
+    <!-- Profil pengguna -->
     <div class="p-4 flex items-center border-b border-white">
         <div class="rounded-full w-12 h-12 bg-posyanduu flex items-center justify-center">
             <span class="font-bold">
@@ -17,40 +20,53 @@
         </div>
         <div class="ml-3">
             <p class="font-medium">{{ Auth::user()->name }}</p>
+            <p class="text-xs text-gray-300 capitalize">{{ Auth::user()->role }}</p>
         </div>
     </div>
 
+    <!-- Navigasi -->
     <nav class="mt-4">
-        <a href="{{ url('/kader/dashboard') }}"
-            class="flex items-center p-3 border-l-4 
-              {{ request()->is('kader/dashboard') ? 'border-white bg-posyanduu text-white' : 'border-transparent text-gray-300 hover:bg-posyanduu hover:text-white' }}">
-            <i class="fas fa-home w-5"></i>
-            <span class="ml-3">Dashboard</span>
-        </a>
+        @if (Auth::user()->role === 'kader')
+            <!-- Menu untuk admin -->
+            <a href="{{ url('/dashboard') }}"
+                class="flex items-center p-3 border-l-4 
+                {{ request()->is('dashboard') ? 'border-white bg-posyanduu text-white' : 'border-transparent text-gray-300 hover:bg-posyanduu hover:text-white' }}">
+                <i class="fas fa-home w-5"></i>
+                <span class="ml-3">Dashboard</span>
+            </a>
 
-        <a href="{{ url('/data') }}"
-            class="flex items-center p-3 border-l-4 
-              {{ request()->is('data') ? 'border-white bg-posyanduu text-white' : 'border-transparent text-gray-300 hover:bg-posyanduu hover:text-white' }}">
-            <i class="fas fa-baby w-5"></i>
-            <span class="ml-3">Data Peserta</span>
-        </a>
+            <a href="{{ url('/data') }}"
+                class="flex items-center p-3 border-l-4 
+                {{ request()->is('data') ? 'border-white bg-posyanduu text-white' : 'border-transparent text-gray-300 hover:bg-posyanduu hover:text-white' }}">
+                <i class="fas fa-baby w-5"></i>
+                <span class="ml-3">Data Peserta</span>
+            </a>
 
-        <a href="{{ url('/pemeriksaan') }}"
-            class="flex items-center p-3 border-l-4 
-              {{ request()->is('pemeriksaan') ? 'border-white bg-posyanduu text-white' : 'border-transparent text-gray-300 hover:bg-posyanduu hover:text-white' }}">
-            <i class="fas fa-stethoscope w-5"></i>
-            <span class="ml-3">Pemeriksaan</span>
-        </a>
+            <a href="{{ url('/pemeriksaan') }}"
+                class="flex items-center p-3 border-l-4 
+                {{ request()->is('pemeriksaan') ? 'border-white bg-posyanduu text-white' : 'border-transparent text-gray-300 hover:bg-posyanduu hover:text-white' }}">
+                <i class="fas fa-stethoscope w-5"></i>
+                <span class="ml-3">Pemeriksaan</span>
+            </a>
 
-        <a href="{{ url('/laporan') }}"
-            class="flex items-center p-3 border-l-4 
-              {{ request()->is('laporan') ? 'border-white bg-posyanduu text-white' : 'border-transparent text-gray-300 hover:bg-posyanduu hover:text-white' }}">
-            <i class="fas fa-file-alt w-5"></i>
-            <span class="ml-3">Ekspor Laporan</span>
-        </a>
+            <a href="{{ url('/laporan') }}"
+                class="flex items-center p-3 border-l-4 
+                {{ request()->is('laporan') ? 'border-white bg-posyanduu text-white' : 'border-transparent text-gray-300 hover:bg-posyanduu hover:text-white' }}">
+                <i class="fas fa-file-alt w-5"></i>
+                <span class="ml-3">Ekspor Laporan</span>
+            </a>
+        @else
+            <!-- Menu untuk pengguna -->
+            <a href="{{ url('/jadwall') }}"
+                class="flex items-center p-3 border-l-4 
+                {{ request()->is('jadwall') ? 'border-white bg-posyanduu text-white' : 'border-transparent text-gray-300 hover:bg-posyanduu hover:text-white' }}">
+                <i class="fa-solid fa-calendar-days"></i>
+                <span class="ml-3">Jadwal Posyandu</span>
+            </a>
+        @endif
     </nav>
 
-
+    <!-- Tombol logout -->
     <div class="absolute bottom-0 w-full p-4 border-t border-white">
         <form method="POST" action="{{ route('logout') }}">
             @csrf
@@ -63,15 +79,17 @@
     </div>
 </aside>
 
-<!-- Overlay untuk mobile -->
+<!-- Overlay -->
 <div id="overlay" class="fixed inset-0 bg-transparent bg-opacity-20 hidden z-30"></div>
 
-<!-- HEADER -->
+<!-- HEADER (Tetap muncul untuk semua role) -->
 <header class="fixed top-0 left-0 right-0 bg-gray-100 shadow flex justify-between items-center md:pl-64">
-    <!-- Tombol hamburger untuk mobile -->
+    <!-- Tombol hamburger -->
     <button id="menu-btn" class="md:hidden p-2 text-gray-600 cursor-pointer">
         <i class="fa-solid fa-bars fa-xl"></i>
     </button>
+
+    <!-- Dropdown profil -->
     <div class="flex items-center space-x-2 ml-auto border-b border-white p-2 hover:bg-gray-50 transition rounded-lg">
         <div class="relative">
             <button id="profileDropdownBtn" class="flex items-center gap-2 focus:outline-none">
@@ -103,4 +121,5 @@
                 </form>
             </div>
         </div>
+    </div>
 </header>
