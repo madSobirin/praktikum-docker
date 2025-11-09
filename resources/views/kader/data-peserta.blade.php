@@ -131,26 +131,50 @@
                 <!-- Pagination -->
                 <div class="mt-6 flex flex-col md:flex-row justify-between items-center">
                     <p class="text-sm text-gray-600 mb-4 md:mb-0">
-                        Menampilkan {{ $balitas->count() }} dari 142 data balita
+                        Menampilkan {{ $balitas->lastItem() ?? 0 }}
+                        dari {{ $balitas->total() }} data balita
                     </p>
+
                     <div class="flex space-x-2">
-                        <button class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-gray-100">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button class="px-3 py-1 rounded border border-posyanduu bg-posyanduu text-white">
-                            1
-                        </button>
-                        <button class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-gray-100">
-                            2
-                        </button>
-                        <button class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-gray-100">
-                            3
-                        </button>
-                        <button class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-gray-100">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
+                        {{-- Tombol Sebelumnya --}}
+                        @if ($balitas->onFirstPage())
+                            <button disabled
+                                class="px-3 py-1 rounded border border-gray-300 text-gray-400 cursor-not-allowed">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                        @else
+                            <a href="{{ $balitas->previousPageUrl() }}"
+                                class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-gray-100">
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                        @endif
+
+                        {{-- Nomor Halaman --}}
+                        @foreach ($balitas->getUrlRange(1, $balitas->lastPage()) as $page => $url)
+                            @if ($page == $balitas->currentPage())
+                                <span
+                                    class="px-3 py-1 rounded border border-posyanduu bg-posyanduu text-white">{{ $page }}</span>
+                            @else
+                                <a href="{{ $url }}"
+                                    class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-gray-100">{{ $page }}</a>
+                            @endif
+                        @endforeach
+
+                        {{-- Tombol Selanjutnya --}}
+                        @if ($balitas->hasMorePages())
+                            <a href="{{ $balitas->nextPageUrl() }}"
+                                class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-gray-100">
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
+                        @else
+                            <button disabled
+                                class="px-3 py-1 rounded border border-gray-300 text-gray-400 cursor-not-allowed">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        @endif
                     </div>
                 </div>
+
             </div>
         </div>
 
@@ -228,27 +252,51 @@
                 <!-- Pagination -->
                 <div class="mt-6 flex flex-col md:flex-row justify-between items-center">
                     <p class="text-sm text-gray-600 mb-4 md:mb-0">
-                        Menampilkan <span>{{ $ibu_hamils->count() }}</span> dari 28 data ibu hamil
+                        {{ $ibu_hamils->lastItem() ?? 0 }}
+                        dari {{ $ibu_hamils->total() }} data ibu hamil
                     </p>
+
                     <div class="flex space-x-2">
-                        <button class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-gray-100">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button class="px-3 py-1 rounded border border-posyanduu bg-posyanduu text-white">
-                            1
-                        </button>
-                        <button class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-gray-100">
-                            2
-                        </button>
-                        <button class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-gray-100">
-                            3
-                        </button>
-                        <button class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-gray-100">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
+                        {{-- Tombol Sebelumnya --}}
+                        @if ($ibu_hamils->onFirstPage())
+                            <button disabled
+                                class="px-3 py-1 rounded border border-gray-300 text-gray-400 cursor-not-allowed">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                        @else
+                            <a href="{{ $ibu_hamils->previousPageUrl() }}"
+                                class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-gray-100">
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                        @endif
+
+                        {{-- Nomor Halaman --}}
+                        @foreach ($ibu_hamils->getUrlRange(1, $ibu_hamils->lastPage()) as $page => $url)
+                            @if ($page == $ibu_hamils->currentPage())
+                                <span
+                                    class="px-3 py-1 rounded border border-posyanduu bg-posyanduu text-white">{{ $page }}</span>
+                            @else
+                                <a href="{{ $url }}"
+                                    class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-gray-100">{{ $page }}</a>
+                            @endif
+                        @endforeach
+
+                        {{-- Tombol Selanjutnya --}}
+                        @if ($ibu_hamils->hasMorePages())
+                            <a href="{{ $ibu_hamils->nextPageUrl() }}"
+                                class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-gray-100">
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
+                        @else
+                            <button disabled
+                                class="px-3 py-1 rounded border border-gray-300 text-gray-400 cursor-not-allowed">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
     </main>
+
 </x-app-main>

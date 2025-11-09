@@ -34,6 +34,10 @@
                 <label class="block text-gray-700 mb-1">Waktu Selesai</label>
                 <input type="datetime-local" name="waktu_selesai" value="{{ old('waktu_selesai') }}" required
                     class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-posyanduu">
+                @error('waktu_selesai')
+                    <p class="text-red-500 text-sm mt-1 italic">Waktu selesai harus lebih besar dari waktu mulai!</p>
+                @enderror
+
             </div>
 
             <div class="flex justify-end space-x-2">
@@ -46,4 +50,5 @@
             </div>
         </form>
     </div>
+
 </x-app-main>

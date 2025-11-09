@@ -3,6 +3,7 @@
 use App\Http\Controllers\ViewData;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PesertaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
@@ -73,11 +74,14 @@ Route::delete('/jadwal/{id}', [JadwalPosyanduController::class, 'destroy'])->nam
 
 Route::get('/jadwal/detail/{slug}', [JadwalPosyanduController::class, 'show'])->name('jadwal.show');
 
-// Route::get('/jadwal/{id}', [JadwalPosyanduController::class, 'show'])->name('jadwal.show');
 
-// buatkan view function 
-Route::get('/laporan', function () {
-    return view('kader.laporan.index');
+// Ekspor Laporan 
+Route::controller(LaporanController::class)->group(function () {
+    Route::get('/laporan', 'index')->name('laporan.index');
+    Route::get('/laporan/search', 'search')->name('laporan.search')->withoutMiddleware('auth');
+    Route::get('/laporan/{tipe}/{id}', 'show')->name('laporan.show');
 });
+    
+
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 

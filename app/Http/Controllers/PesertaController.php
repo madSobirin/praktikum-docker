@@ -15,8 +15,9 @@ class PesertaController extends Controller
         // $ibu_hamils = IbuHamil::all();
         $totalBalita = Balita::count();
         $totalIbuHamil = IbuHamil::count();
-        $balitas = Balita::where('user_id', Auth::id())->get();
-        $ibu_hamils = IbuHamil::where('user_id', Auth::id())->get();
+        $balitas = Balita::where('user_id', Auth::id())->paginate(5);
+        $ibu_hamils = IbuHamil::where('user_id', Auth::id())->paginate(5);
+
 
         return view('kader.data-peserta', compact('balitas', 'ibu_hamils', 'totalBalita', 'totalIbuHamil'));
 
@@ -58,7 +59,16 @@ class PesertaController extends Controller
             return redirect()->back()->with('error', 'Kategori tidak valid!');
         }
 
-        return redirect()->route('view.data')->with('success', 'Data peserta berhasil ditambahkan.');
+        if ($request->kategori === 'ibu_hamil') {
+            return redirect()->route('view.data', ['tab' => 'ibu_hamil'])
+                ->with('success', 'Data ibu hamil berhasil ditambahkan!');
+        } elseif ($request->kategori === 'balita') {
+            return redirect()->route('view.data')
+                ->with('success', 'Data balita berhasil ditambahkan!');
+        } else {
+            return redirect()->back()->with('error', 'Kategori tidak valid!');
+        }
+
     }
 
     public function edit($kategori, $id)

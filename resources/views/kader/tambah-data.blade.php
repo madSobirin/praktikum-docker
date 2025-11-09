@@ -52,9 +52,9 @@
                                 </label>
                                 <input type="text" id="nik" name="nik" value="{{ old('nik') }}" required
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-button focus:border-transparent"
-                                    placeholder="Masukkan NIK balita">
+                                    placeholder="Masukkan NIK balita" minlength="16" maxlength="16">
                                 @error('nik')
-                                    <p class="text-red-500 text-sm mt-1">nik sudah terpakai</p>
+                                    <p class="text-red-500 text-sm mt-1 italic">nik sudah terpakai</p>
                                 @enderror
                             </div>
 
@@ -143,9 +143,9 @@
                                 <input type="text" id="nik_ibu_hamil" name="nik_ibu_hamil"
                                     value="{{ old('nik_ibu_hamil') }}"
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-button focus:border-transparent"
-                                    placeholder="Masukkan NIK ibu hamil" required>
+                                    placeholder="Masukkan NIK ibu hamil" required minlength="16" maxlength="16">
                                 @error('nik_ibu_hamil')
-                                    <p class="text-red-500 text-sm mt-1">nik sudah terpakai</p>
+                                    <p class="text-red-500 text-sm mt-1 italic">nik sudah terpakai</p>
                                 @enderror
                             </div>
 
