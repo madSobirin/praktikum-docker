@@ -1,6 +1,7 @@
 // resources/js/app.js
 import "./slideprofile.js";
 import "./bootstrap";
+import "./pagination.js";
 import Chart from "chart.js/auto";
 window.Chart = Chart;
 import "./chart.js";
