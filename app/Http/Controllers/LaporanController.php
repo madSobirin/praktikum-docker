@@ -110,8 +110,10 @@ class LaporanController extends Controller
             abort(404);
         }
 
-        return $pdf->download("laporan-$tipe-$id.pdf");
+        // return $pdf->download("laporan-$tipe-$id.pdf");
+        return $pdf->stream("laporan-$tipe-$id.pdf");
     }
+
 }
 
 

@@ -81,8 +81,9 @@ Route::controller(LaporanController::class)->group(function () {
     Route::get('/laporan/search', 'search')->name('laporan.search')->withoutMiddleware('auth');
     Route::get('/laporan/{tipe}/{id}', 'show')->name('laporan.show');
 });
-    // Ekspor PDF
-Route::get('/laporan/pdf/{tipe}/{id}', [LaporanController::class, 'exportPdf'])->name('laporan.pdf');
+// Ekspor PDF
+Route::get('/laporan/pdf/{tipe}/{id}', [LaporanController::class, 'exportPdf'])
+    ->name('laporan.pdf');
 
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 
