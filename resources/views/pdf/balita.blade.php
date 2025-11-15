@@ -26,7 +26,6 @@
         .header h1 {
             margin: 0;
             color: #70b2b2;
-            /* Warna Posyandu Anda */
             font-size: 24px;
             font-weight: 600;
         }

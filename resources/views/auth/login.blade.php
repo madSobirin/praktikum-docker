@@ -84,7 +84,7 @@
                         <div>
                             <div class="flex items-center justify-between">
                                 <label for="password" class="block text-sm font-medium text-gray-700">Kata Sandi</label>
-                                <a href="#"
+                                <a href="{{ route('password.request') }}"
                                     class="text-sm font-semibold text-lamp-button hover:text-lamp-button-hover">
                                     Lupa kata sandi?
                                 </a>

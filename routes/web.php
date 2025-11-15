@@ -9,6 +9,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PemeriksaanController;
 use App\Http\Controllers\JadwalPosyanduController;
+use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\ResetPasswordController;
+
 
 // register view
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
@@ -21,6 +24,14 @@ Route::post('/', [AuthController::class, 'login']);
 // logout
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+
+Route::get('forgot-password', [ForgotPasswordController::class, 'showForgotPasswordForm'])->name('password.request');
+Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLink'])->name('password.email');
+
+Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
+
+
 Route::middleware(['auth', 'role:kader'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'kader'])->name('kader.dashboard');
 });
@@ -29,15 +40,7 @@ Route::middleware(['auth', 'role:pengguna'])->group(function () {
     Route::get('/jadwall', [DashboardController::class, 'pengguna'])->name('pengguna.dashboard');
     Route::get('/jadwall/{slug}', [DashboardController::class, 'show'])->name('pengguna.show');
 });
-// Route::get('/jadwal/{slug}', [DashboardController::class, 'showjadwal'])->name('jadwal.show');
-// Dashboard routes (sesuai role ya)
-// Route::middleware(['auth', 'role:kader'])->prefix('kader')->group(function () {
-//     Route::get('/dashboard', [DashboardController::class, 'kader'])->name('kader.dashboard');
-// });
 
-// Route::middleware(['auth', 'role:pengguna'])->prefix('pengguna')->group(function () {
-//     Route::get('/jadwall', [DashboardController::class, 'pengguna'])->name('pengguna.dashboard');
-// });
 // Menampilkan Data Peserta yang Terdaftar ya
 Route::get('/data', [PesertaController::class, 'index'])->name('view.data');
 
