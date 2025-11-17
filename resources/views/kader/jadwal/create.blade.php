@@ -41,7 +41,8 @@
             </div>
 
             <div class="flex justify-end space-x-2">
-                <a href="#" class="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded-lg">
+                <a href="{{ route('pemeriksaan.index') }}"
+                    class="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded-lg">
                     Batal
                 </a>
                 <button type="submit" class="bg-posyanduu hover:bg-posyanduDark text-white py-2 px-4 rounded-lg">

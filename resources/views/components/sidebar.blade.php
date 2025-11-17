@@ -1,6 +1,6 @@
 <!-- SIDEBAR -->
 <aside id="sidebar"
-    class="fixed top-0 left-0 w-64 h-screen bg-posyanduDark text-white transform -translate-x-full md:translate-x-0 transition-transform duration-300 z-40">
+    class="fixed top-0 left-0 w-64 h-screen bg-posyanduDark text-white transform -translate-x-full md:translate-x-0 transition-transform duration-300 z-51">
 
     <!-- Header logo -->
     <div class="p-4 border-b border-white">
@@ -83,7 +83,7 @@
 <div id="overlay" class="fixed inset-0 bg-transparent bg-opacity-20 hidden z-30"></div>
 
 <!-- HEADER (Tetap muncul untuk semua role) -->
-<header class="fixed top-0 left-0 right-0 bg-gray-100 shadow flex justify-between items-center md:pl-64">
+<header class="fixed top-0 z-50 left-0 right-0 bg-gray-100 shadow flex justify-between items-center md:pl-64">
     <!-- Tombol hamburger -->
     <button id="menu-btn" class="md:hidden p-2 text-gray-600 cursor-pointer">
         <i class="fa-solid fa-bars fa-xl"></i>

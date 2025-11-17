@@ -1,22 +1,24 @@
-{{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
 <x-app-main title="Data Peserta">
     <main class="ml-2 md:ml-2">
-        <div class="mb-6 flex justify-between items-center">
+        <div class="mb-6 flex flex-col md:flex-row md:justify-between md:items-center gap-3">
             <div>
-                <h1 class="text-2xl font-bold text-gray-800">
+                <h1 class="text-lg md:text-2xl font-bold text-gray-800">
                     Data Balita & Ibu Hamil
                 </h1>
-                <p class="text-gray-600">
+                <p class="text-gray-600 text-xs md:text-sm">
                     Kelola data balita dan ibu hamil di posyandu
                 </p>
             </div>
-            <div class="flex space-x-2">
+
+            <div class="flex justify-start md:justify-end">
                 <a href="{{ route('peserta.create') }}"
-                    class="bg-button hover:bg-buttonhover transition-colors duration-200 text-white px-4 py-2 rounded-lg flex items-center">
+                    class="bg-button hover:bg-buttonhover transition-colors duration-200
+                   text-white text-xs md:text-base px-3 py-2 md:px-4 md:py-2 rounded-lg flex items-center">
                     <i class="fas fa-plus mr-2"></i> Tambah Data
                 </a>
             </div>
         </div>
+
 
         @if (session('success'))
             <script>
@@ -75,45 +77,46 @@
         <!-- Data Balita Content -->
         <div id="balita-content" data-content class="active">
             <div class="bg-white rounded-xl p-4 md:p-6 shadow-md">
-                <div class="overflow-x-auto">
-                    <table class="w-full">
-                        <thead>
-                            <tr class="text-left border-b text-gray-600 text-sm">
-                                <th class="pb-3">NIK</th>
-                                <th class="pb-3">Nama Balita</th>
-                                <th class="pb-3">Usia</th>
-                                <th class="pb-3">Jenis Kelamin</th>
-                                <th class="pb-3">Alamat</th>
-                                <th class="pb-3">Nama Orang Tua</th>
-                                <th class="pb-3">Aksi</th>
+                <div class="overflow-x-auto rounded-xl border border-gray-200 shadow-sm scroll-smooth">
+                    <table class="w-full text-sm">
+                        <thead class="bg-gray-50">
+                            <tr class="text-left border-b text-gray-600">
+                                <th class="py-3 px-3 whitespace-nowrap text-xs">NIK</th>
+                                <th class="py-3 px-3 whitespace-nowrap text-xs">Nama</th>
+                                <th class="py-3 px-3 whitespace-nowrap text-xs">Usia</th>
+                                <th class="py-3 px-3 whitespace-nowrap text-xs">JK</th>
+                                <th class="py-3 px-3 whitespace-nowrap text-xs">Alamat</th>
+                                <th class="py-3 px-3 whitespace-nowrap text-xs">Orang Tua</th>
+                                <th class="py-3 px-3 whitespace-nowrap text-xs text-center">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y text-gray-700">
-                            @forelse ($balitas as $balita)
-                                <tr>
-                                    <td class="py-4">{{ $balita->nik }}</td>
-                                    <td class="py-4">{{ $balita->nama_balita }}</td>
-                                    <td class="py-4">{{ $balita->usia_tahun }} tahun {{ $balita->usia_bulan }} bulan
+
+                        <tbody class="divide-y text-gray-800">
+                            @forelse($balitas as $balita)
+                                <tr class="hover:bg-gray-50">
+                                    <td class="py-3 px-3 whitespace-nowrap">{{ $balita->nik }}</td>
+                                    <td class="py-3 px-3 whitespace-nowrap">{{ $balita->nama_balita }}</td>
+                                    <td class="py-3 px-3 whitespace-nowrap">
+                                        {{ $balita->usia_tahun }} tahun • {{ $balita->usia_bulan }} bulan
                                     </td>
-                                    <td class="py-4">{{ $balita->jenis_kelamin }}</td>
-                                    <td class="py-4">{{ $balita->alamat }}</td>
-                                    <td class="py-4">{{ $balita->nama_orang_tua }}</td>
-                                    <td class="py-4 text-center">
-                                        <div class="flex space-x-2">
+                                    <td class="py-3 px-3 whitespace-nowrap">{{ $balita->jenis_kelamin }}</td>
+                                    <td class="py-3 px-3 whitespace-nowrap">{{ $balita->alamat }}</td>
+                                    <td class="py-3 px-3 whitespace-nowrap">{{ $balita->nama_orang_tua }}</td>
+
+                                    <td class="py-3 px-3 text-center whitespace-nowrap">
+                                        <div class="flex items-center justify-center space-x-3">
                                             <a href="{{ route('peserta.edit', ['kategori' => 'balita', 'id' => $balita->id]) }}"
-                                                class="text-warning hover:text-yellow-600">
-                                                <i class="fas fa-edit"></i>
+                                                class="text-yellow-500 hover:text-yellow-600">
+                                                <i class="fas fa-edit text-sm"></i>
                                             </a>
+
                                             <form
                                                 action="{{ route('peserta.destroy', ['kategori' => 'balita', 'id' => $balita->id]) }}"
-                                                method="POST"
-                                                onsubmit="return confirm('Yakin ingin menghapus data ini?')"
-                                                class="inline-block">
+                                                method="POST" class="delete-button inline-block">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit"
-                                                    class="text-danger delete-button hover:text-red-600 cursor-pointer">
-                                                    <i class="fas fa-trash"></i>
+                                                <button type="submit" class="text-red-500 hover:text-red-600">
+                                                    <i class="fas fa-trash text-sm"></i>
                                                 </button>
                                             </form>
                                         </div>
@@ -121,14 +124,16 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="py-6 text-center text-gray-500">
-                                        <i class="fas fa-info-circle mr-2"></i> Tidak ada data balita
+                                    <td colspan="7" class="py-6 text-center text-gray-500 text-sm">
+                                        Tidak ada data balita
                                     </td>
                                 </tr>
                             @endforelse
                         </tbody>
                     </table>
                 </div>
+
+
 
                 <!-- Pagination Balita -->
                 <div class="mt-6 flex flex-col md:flex-row justify-between items-center">
@@ -178,42 +183,42 @@
         <!-- Data Ibu Hamil Content -->
         <div id="ibu-hamil-content" data-content>
             <div class="bg-white rounded-xl p-4 md:p-6 shadow-md">
-                <div class="overflow-x-auto">
-                    <table class="w-full">
+                <div class="overflow-x-auto rounded-xl border border-gray-200 shadow-sm scroll-smooth">
+                    <table class="w-full text-sm">
                         <thead>
-                            <tr class="text-left border-b text-gray-600 text-sm">
-                                <th class="pb-3">NIK</th>
-                                <th class="pb-3">Nama Ibu Hamil</th>
-                                <th class="pb-3">Nama Suami</th>
-                                <th class="pb-3">Umur</th>
-                                <th class="pb-3">Alamat</th>
-                                <th class="pb-3">Aksi</th>
+                            <tr class="text-left border-b text-gray-600 bg-gray-50">
+                                <th class="py-3 px-3 whitespace-nowrap text-xs">NIK</th>
+                                <th class="py-3 px-3 whitespace-nowrap text-xs">Nama Ibu Hamil</th>
+                                <th class="py-3 px-3 whitespace-nowrap text-xs">Nama Suami</th>
+                                <th class="py-3 px-3 whitespace-nowrap text-xs">Umur</th>
+                                <th class="py-3 px-3 whitespace-nowrap text-xs">Alamat</th>
+                                <th class="py-3 px-3 whitespace-nowrap text-xs text-center">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y text-gray-700">
+
+                        <tbody class="divide-y text-gray-800">
                             @forelse ($ibu_hamils as $ibu)
-                                <tr>
-                                    <td class="py-4">{{ $ibu->nik_ibu_hamil }}</td>
-                                    <td class="py-4">{{ $ibu->nama_ibu_hamil }}</td>
-                                    <td class="py-4">{{ $ibu->nama_suami }}</td>
-                                    <td class="py-4">{{ $ibu->umur }} tahun</td>
-                                    <td class="py-4">{{ $ibu->alamat_ibu_hamil }}</td>
-                                    <td class="py-4 text-center">
-                                        <div class="flex space-x-2">
+                                <tr class="hover:bg-gray-50">
+                                    <td class="py-3 px-3 whitespace-nowrap">{{ $ibu->nik_ibu_hamil }}</td>
+                                    <td class="py-3 px-3 whitespace-nowrap">{{ $ibu->nama_ibu_hamil }}</td>
+                                    <td class="py-3 px-3 whitespace-nowrap">{{ $ibu->nama_suami }}</td>
+                                    <td class="py-3 px-3 whitespace-nowrap">{{ $ibu->umur }} tahun</td>
+                                    <td class="py-3 px-3 whitespace-nowrap">{{ $ibu->alamat_ibu_hamil }}</td>
+
+                                    <td class="py-3 px-3 text-center whitespace-nowrap">
+                                        <div class="flex items-center justify-center space-x-3">
                                             <a href="{{ route('peserta.edit', ['kategori' => 'ibu_hamil', 'id' => $ibu->id]) }}"
-                                                class="text-warning hover:text-yellow-600">
-                                                <i class="fas fa-edit"></i>
+                                                class="text-yellow-500 hover:text-yellow-600">
+                                                <i class="fas fa-edit text-sm"></i>
                                             </a>
+
                                             <form
                                                 action="{{ route('peserta.destroy', ['kategori' => 'ibu_hamil', 'id' => $ibu->id]) }}"
-                                                method="POST"
-                                                onsubmit="return confirm('Yakin ingin menghapus data ini?')"
-                                                class="inline-block">
+                                                method="POST" class="delete-button inline-block">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit"
-                                                    class="text-danger delete-button hover:text-red-600 cursor-pointer">
-                                                    <i class="fas fa-trash"></i>
+                                                <button type="submit" class="text-red-500 hover:text-red-600">
+                                                    <i class="fas fa-trash text-sm"></i>
                                                 </button>
                                             </form>
                                         </div>
@@ -221,14 +226,15 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="6" class="py-6 text-center text-gray-500">
-                                        <i class="fas fa-info-circle mr-2"></i> Tidak ada data ibu hamil
+                                    <td colspan="6" class="py-6 text-center text-gray-500 text-sm">
+                                        Tidak ada data ibu hamil
                                     </td>
                                 </tr>
                             @endforelse
                         </tbody>
                     </table>
                 </div>
+
 
                 <!-- Pagination Ibu Hamil -->
                 <div class="mt-6 flex flex-col md:flex-row justify-between items-center">

@@ -4,10 +4,12 @@
         <div class="mb-6 flex justify-between items-center">
             <div>
 
-                <h1 class="text-2xl font-bold text-gray-800"><i class="fas fa-plus-circle mr-3 text-posyanduu"></i>Tambah
+                <h1 class="font-bold text-gray-800 md:text-lg text-md"><i
+                        class="fas fa-plus-circle mr-3 text-posyanduu "></i>Tambah
                     Data Peserta</h1>
 
-                <p class="text-gray-600"> <i class="fas fa-info-circle mr-2 text-posyanduu"></i>Pilih kategori dan isi
+                <p class="text-gray-600 md:text-md text-sm"> <i class="fas fa-info-circle mr-2 text-posyanduu "></i>Pilih
+                    kategori dan isi
                     form
                     sesuai jenis data peserta</p>
             </div>

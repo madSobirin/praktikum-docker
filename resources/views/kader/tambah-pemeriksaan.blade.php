@@ -3,7 +3,8 @@
         <!-- Header -->
         <div class="mb-6 flex justify-between items-center">
             <div>
-                <h1 class="text-2xl font-bold text-gray-800"><i class="fas fa-plus-circle mr-3 text-posyanduu"></i>Tambah
+                <h1 class="text-lg md:text-2xl font-bold text-gray-800"><i
+                        class="fas fa-plus-circle mr-3 text-posyanduu"></i>Tambah
                     Pemeriksaan</h1>
                 <p class="text-gray-600"><i class="fas fa-info-circle mr-2 text-posyanduu"></i>Pilih tipe peserta dan isi
                     form sesuai jenis pemeriksaan</p>

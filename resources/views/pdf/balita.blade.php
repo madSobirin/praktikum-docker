@@ -163,7 +163,7 @@
         <div class="footer-content">
             Lohbener, {{ date('d') }} {{ \Carbon\Carbon::now()->isoFormat('MMMM') }} {{ date('Y') }}
             <div class="signature">
-                ( Kader Posyandu )
+                {{ $user->name }}
             </div>
         </div>
     </div>

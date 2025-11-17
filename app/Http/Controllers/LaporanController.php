@@ -7,11 +7,13 @@ use App\Models\IbuHamil;
 use App\Models\Pemeriksaan;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Auth;
 
 class LaporanController extends Controller
 {
     public function index()
     {
+
         return view('kader.laporan.index');
     }
 
@@ -98,14 +100,15 @@ class LaporanController extends Controller
 
     public function exportPdf($tipe, $id)
     {
+        $user = Auth::user();
         if ($tipe === 'balita') {
             $data = Balita::findOrFail($id);
             $pemeriksaan = Pemeriksaan::where('balita_id', $id)->latest()->first();
-            $pdf = Pdf::loadView('pdf.balita', compact('data', 'pemeriksaan'));
+            $pdf = Pdf::loadView('pdf.balita', compact('data', 'pemeriksaan', 'user'));
         } elseif ($tipe === 'ibu') {
             $data = IbuHamil::findOrFail($id);
             $pemeriksaan = Pemeriksaan::where('ibu_hamil_id', $id)->latest()->first();
-            $pdf = Pdf::loadView('pdf.ibu', compact('data', 'pemeriksaan'));
+            $pdf = Pdf::loadView('pdf.ibu', compact('data', 'pemeriksaan', 'user'));
         } else {
             abort(404);
         }
