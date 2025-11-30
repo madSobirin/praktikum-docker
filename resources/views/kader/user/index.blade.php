@@ -61,7 +61,7 @@
                                     <div class="flex items-center justify-center space-x-3">
 
                                         <!-- Edit -->
-                                        <a href="#"
+                                        <a href="{{ route('users.edit', $user->id) }}"
                                             class="text-yellow-500 hover:text-yellow-600 transition transform hover:scale-110">
                                             <i class="fas fa-edit text-sm"></i>
                                         </a>

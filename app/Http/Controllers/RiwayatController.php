@@ -21,7 +21,13 @@ class RiwayatController extends Controller
                 $q->latest()->first();
             }
         ])->get();
-        $ibuHamils = $user->ibu_hamils()->with('pemeriksaans')->get();
+
+        // Ambil Ibu Hamil + Urutkan pemeriksaan dari yang terbaru
+        $ibuHamils = $user->ibu_hamils()->with([
+            'pemeriksaans' => function ($q) {
+                $q->latest();
+            }
+        ])->get();
         // Kalau belum ada relasi pemeriksaan di model Balita, kita bisa nanti benahin.
         return view('pengguna.riwayat.index', compact('balitas', 'ibuHamils'));
     }

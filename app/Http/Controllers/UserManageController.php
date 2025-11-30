@@ -42,6 +42,40 @@ class UserManageController extends Controller
         return redirect()->back()->with('success', 'Pengguna berhasil didaftarkan.');
     }
 
+    public function edit($id)
+    {
+        // buatkan view edit 
+        $user = User::findOrFail($id);
+        return view('kader.user.edit', compact('user'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => ['required', 'email'],
+            'role' => 'required|in:admin,kader,pengguna',
+            'password' => 'nullable|min:8',
+        ]);
+
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'role' => $request->role,
+            // 'password' => $request->password,
+        ];
+
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
+
+        $user->update($data);
+
+        return redirect()->route('admin.pengguna.index')->with('success', 'Data pengguna berhasil diperbarui!');
+    }
+
     public function destroy($id)
     {
         $user = User::findOrFail($id);

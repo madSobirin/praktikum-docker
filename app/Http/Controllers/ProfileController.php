@@ -22,7 +22,7 @@ class ProfileController extends Controller
 
 
         // Hitung Seluruh Pemeriksaa
-        $pemeriksaans = Pemeriksaan::where('user_id', $profiles->id)->get();
+        $pemeriksaans = Pemeriksaan::get();
         return view('profile.index', compact('profiles', 'pemeriksaans', 'totalPeserta'));
     }
 

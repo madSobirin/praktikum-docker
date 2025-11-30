@@ -1,177 +1,317 @@
 <x-app-main title="Riwayat Pemeriksaan">
+    {{-- Background Decoration --}}
+    <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+        <div
+            class="absolute top-0 left-0 w-96 h-96 bg-teal-200/30 rounded-full blur-3xl mix-blend-multiply filter animate-blob">
+        </div>
+        <div
+            class="absolute top-0 right-0 w-96 h-96 bg-pink-200/30 rounded-full blur-3xl mix-blend-multiply filter animate-blob animation-delay-2000">
+        </div>
+        <div
+            class="absolute -bottom-32 left-20 w-96 h-96 bg-blue-200/30 rounded-full blur-3xl mix-blend-multiply filter animate-blob animation-delay-4000">
+        </div>
+    </div>
 
-    <main class="ml-2 md:ml-2">
+    <main class="relative px-4 py-8 md:px-8">
 
-        <div id="headerBox" class="mb-6 opacity-0">
-            <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
-                <i class="fas fa-notes-medical text-posyanduu"></i>
-                Riwayat Pemeriksaan
-            </h2>
-            <p class="text-gray-600 text-sm">Ringkasan pemeriksaan balita & ibu hamil Anda</p>
+        <!-- HEADER -->
+        <div id="headerBox" class="mb-10 text-center md:text-left opacity-0 translate-y-10">
+            <div class="inline-block p-3 rounded-2xl bg-white shadow-md mb-4">
+                <i
+                    class="fas fa-heartbeat text-4xl text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-blue-600"></i>
+            </div>
+            <h1 class="text-4xl font-extrabold text-slate-800 tracking-tight">
+                Riwayat <span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-blue-600">Kesehatan</span>
+            </h1>
+            <p class="text-slate-500 mt-2 text-lg max-w-2xl">
+                Pantau terus tumbuh kembang buah hati dan kesehatan ibu secara real-time.
+            </p>
         </div>
 
-        <!-- Balita Section -->
-        <h3 class="text-lg font-semibold text-gray-700 mt-6 mb-3 flex items-center gap-2 opacity-0" id="sub1">
-            <i class="fas fa-child text-posyanduu"></i>
-            Balita
-        </h3>
+        {{-- SECTION BALITA — tampil hanya jika ada --}}
+        @if ($balitas->count() > 0)
+            <div class="mb-12">
+                <div class="flex items-center gap-3 mb-6 opacity-0 translate-x-10" id="title-balita">
+                    <div class="h-10 w-1.5 bg-gradient-to-b from-teal-400 to-blue-500 rounded-full"></div>
+                    <h2 class="text-2xl font-bold text-slate-800">Data Balita</h2>
+                    <span
+                        class="bg-blue-100 text-blue-600 text-xs font-bold px-3 py-1 rounded-full border border-blue-200">
+                        {{ $balitas->count() }} Terdaftar
+                    </span>
+                </div>
 
-        <div id="balitaList">
-            @forelse ($balitas as $balita)
-                <div class="riwayat-card opacity-0 mb-4">
-                    <div class="flex items-center gap-3 mb-2">
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="grid-balita">
+                    @foreach ($balitas as $balita)
                         <div
-                            class="w-10 h-10 bg-posyanduu/10 text-posyanduu flex items-center justify-center rounded-full">
-                            <i class="fas fa-baby"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-md font-bold text-gray-800">{{ $balita->nama_balita }}</h4>
-                            <p class="text-gray-600 text-xs">NIK: {{ $balita->nik }}</p>
-                        </div>
-                    </div>
+                            class="card-item relative group bg-white/80 backdrop-blur-xl rounded-[2rem] p-6 shadow-lg border border-white/50 hover:border-blue-300 transition-all duration-300">
 
-                    <p class="text-sm text-gray-700 mb-2">
-                        Orang Tua: <span class="font-medium">{{ $balita->nama_orang_tua }}</span>
-                    </p>
+                            <div
+                                class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-blue-100/50 to-transparent rounded-bl-[100%] rounded-tr-[2rem] transition-all group-hover:scale-110">
+                            </div>
 
-                    <a href="{{ route('laporan.pdf', ['tipe' => 'balita', 'id' => $balita->id]) }}"
-                        class="download-btn">
-                        <i class="fas fa-file-download mr-2"></i>
-                        Download Riwayat
-                    </a>
+                            <div class="relative z-10">
+                                <div class="flex items-start justify-between mb-4">
+                                    <div class="flex items-center gap-4">
+                                        <div
+                                            class="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-white shadow-lg shadow-blue-500/30 group-hover:rotate-12 transition-transform duration-300">
+                                            <i class="fas fa-baby text-2xl"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-lg font-bold text-slate-800 leading-tight">
+                                                {{ $balita->nama_balita }}</h3>
+                                            <p
+                                                class="text-xs font-mono text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md inline-block mt-1">
+                                                {{ $balita->nik }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-3 bg-slate-50/80 rounded-xl p-4 mb-4 border border-slate-100">
+                                    <div class="flex justify-between items-center text-sm">
+                                        <span class="text-slate-500"><i
+                                                class="fas fa-user-friends mr-2 text-blue-300"></i>Orang Tua</span>
+                                        <span
+                                            class="font-semibold text-slate-700">{{ Str::limit($balita->nama_orang_tua, 15) }}</span>
+                                    </div>
+
+                                    <div class="h-px bg-slate-200"></div>
+
+                                    @php $pemeriksaanTerakhir = $balita->pemeriksaans->first(); @endphp
+
+                                    <div class="flex justify-between items-start text-sm">
+                                        <span class="text-slate-500"><i
+                                                class="fas fa-calendar-check mr-2 text-blue-300"></i>Terakhir</span>
+                                        <div class="text-right">
+                                            @if ($pemeriksaanTerakhir)
+                                                <span class="block font-bold text-teal-600">
+                                                    {{ \Carbon\Carbon::parse($pemeriksaanTerakhir->tanggal)->format('d M Y') }}
+                                                </span>
+                                            @else
+                                                <span class="block text-slate-400 italic text-xs">Belum diperiksa</span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <a href="{{ route('laporan.pdf', ['tipe' => 'balita', 'id' => $balita->id]) }}"
+                                    class="w-full inline-flex justify-center items-center py-3 rounded-xl bg-white border-2 border-slate-100 text-slate-600 font-semibold text-sm hover:bg-blue-50 hover:border-blue-200 hover:text-blue-600 transition-all duration-300 group-hover:shadow-md">
+                                    <i
+                                        class="fas fa-file-pdf mr-2 text-lg text-red-400 group-hover:scale-125 transition-transform"></i>
+                                    Download Riwayat
+                                </a>
+                            </div>
+
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        @endif
+
+        {{-- SECTION IBU HAMIL — tampil hanya jika ada --}}
+        @if ($ibuHamils->count() > 0)
+            <div class="mb-12">
+                <div class="flex items-center gap-3 mb-6 opacity-0 translate-x-10" id="title-ibu">
+                    <div class="h-10 w-1.5 bg-gradient-to-b from-pink-400 to-rose-500 rounded-full"></div>
+                    <h2 class="text-2xl font-bold text-slate-800">Data Ibu Hamil</h2>
+                    <span
+                        class="bg-pink-100 text-pink-600 text-xs font-bold px-3 py-1 rounded-full border border-pink-200">
+                        {{ $ibuHamils->count() }} Terdaftar
+                    </span>
                 </div>
 
-            @empty
-                <p class="empty-text">Tidak ada data balita yang terdaftar.</p>
-            @endforelse
-        </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="grid-ibu">
+                    @foreach ($ibuHamils as $ibu)
+                        <div
+                            class="card-item relative group bg-white/80 backdrop-blur-xl rounded-[2rem] p-6 shadow-lg border border-white/50 hover:border-pink-300 transition-all duration-300">
 
-        <!-- Ibu Hamil -->
-        <h3 class="text-lg font-semibold text-gray-700 mt-8 mb-3 flex items-center gap-2 opacity-0" id="sub2">
-            <i class="fas fa-female text-pink-500"></i>
-            Ibu Hamil
-        </h3>
+                            <div
+                                class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-pink-100/50 to-transparent rounded-bl-[100%] rounded-tr-[2rem] transition-all group-hover:scale-110">
+                            </div>
 
-        <div id="ibuList">
-            @forelse ($ibuHamils as $ibu)
-                <div class="riwayat-card opacity-0 mb-4">
-                    <div class="flex items-center gap-3 mb-2">
-                        <div class="w-10 h-10 bg-pink-200 text-pink-500 flex items-center justify-center rounded-full">
-                            <i class="fas fa-user-md"></i>
+                            <div class="relative z-10">
+                                <div class="flex items-start justify-between mb-4">
+                                    <div class="flex items-center gap-4">
+                                        <div
+                                            class="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center text-white shadow-lg shadow-pink-500/30 group-hover:rotate-12 transition-transform duration-300">
+                                            <i class="fas fa-female text-2xl"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-lg font-bold text-slate-800 leading-tight">
+                                                {{ $ibu->nama_ibu_hamil }}</h3>
+                                            <p
+                                                class="text-xs font-mono text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md inline-block mt-1">
+                                                {{ $ibu->nik_ibu_hamil }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-3 bg-slate-50/80 rounded-xl p-4 mb-4 border border-slate-100">
+                                    <div class="flex justify-between items-center text-sm">
+                                        <span class="text-slate-500"><i
+                                                class="fas fa-user-tie mr-2 text-pink-300"></i>Suami</span>
+                                        <span
+                                            class="font-semibold text-slate-700">{{ Str::limit($ibu->nama_suami, 15) }}</span>
+                                    </div>
+
+                                    <div class="h-px bg-slate-200"></div>
+
+                                    @php $pemeriksaanTerakhir = $ibu->pemeriksaans->first(); @endphp
+
+                                    <div class="flex justify-between items-start text-sm">
+                                        <span class="text-slate-500"><i
+                                                class="fas fa-stethoscope mr-2 text-pink-300"></i>Cek Terakhir</span>
+                                        <div class="text-right">
+                                            @if ($pemeriksaanTerakhir)
+                                                <span class="block font-bold text-pink-600">
+                                                    {{ \Carbon\Carbon::parse($pemeriksaanTerakhir->tanggal)->format('d M Y') }}
+                                                </span>
+                                            @else
+                                                <span class="block text-slate-400 italic text-xs">Belum diperiksa</span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <a href="{{ route('laporan.pdf', ['tipe' => 'ibu', 'id' => $ibu->id]) }}"
+                                    class="w-full inline-flex justify-center items-center py-3 rounded-xl bg-white border-2 border-slate-100 text-slate-600 font-semibold text-sm hover:bg-pink-50 hover:border-pink-200 hover:text-pink-600 transition-all duration-300 group-hover:shadow-md">
+                                    <i
+                                        class="fas fa-file-pdf mr-2 text-lg text-red-400 group-hover:scale-125 transition-transform"></i>
+                                    Download Riwayat
+                                </a>
+                            </div>
+
                         </div>
-
-                        <div>
-                            <h4 class="text-md font-bold text-gray-800">{{ $ibu->nama_ibu_hamil }}</h4>
-                            <p class="text-gray-600 text-xs">NIK: {{ $ibu->nik_ibu_hamil }}</p>
-                        </div>
-                    </div>
-
-                    @if ($ibu->pemeriksaanTerakhir)
-                        <p class="text-sm text-gray-700">
-                            Pemeriksaan terakhir:
-                            <span class="font-medium">{{ $ibu->pemeriksaanTerakhir->tanggal }}</span>
-                        </p>
-                    @else
-                        <p class="text-sm text-gray-500 italic">Belum ada pemeriksaan</p>
-                    @endif
-
-                    <a href="{{ route('laporan.pdf', ['tipe' => 'ibu', 'id' => $ibu->id]) }}" class="download-btn">
-                        <i class="fas fa-file-download mr-2"></i>
-                        Download Riwayat
-                    </a>
+                    @endforeach
                 </div>
-            @empty
-                <p class="empty-text">Belum ada data ibu hamil.</p>
-            @endforelse
-        </div>
+            </div>
+        @endif
+
+        {{-- JIKA KEDUANYA KOSONG --}}
+        @if ($balitas->count() === 0 && $ibuHamils->count() === 0)
+            <div class="py-16 text-center bg-white/60 rounded-3xl border-2 border-dashed border-slate-200">
+                <div class="w-24 h-24 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-folder-open text-4xl text-slate-400"></i>
+                </div>
+                <p class="text-slate-500 font-medium">Belum ada data untuk ditampilkan.</p>
+            </div>
+        @endif
 
     </main>
+
+    <style>
+        @keyframes blob {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(30px, -50px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(-20px, 20px) scale(0.9);
+            }
+
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+        }
+
+        .animate-blob {
+            animation: blob 7s infinite;
+        }
+
+        .animation-delay-2000 {
+            animation-delay: 2s;
+        }
+
+        .animation-delay-4000 {
+            animation-delay: 4s;
+        }
+    </style>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const tl = gsap.timeline({
+                defaults: {
+                    ease: "elastic.out(1, 0.75)",
+                    duration: 1.2
+                }
+            });
+
+            tl.to("#headerBox", {
+                y: 0,
+                opacity: 1,
+                ease: "power3.out",
+                duration: 1
+            });
+
+            if (document.querySelector("#title-balita"))
+                tl.to("#title-balita", {
+                    x: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    ease: "power2.out"
+                }, "-=0.5");
+
+            if (document.querySelectorAll("#grid-balita .card-item").length > 0)
+                tl.from("#grid-balita .card-item", {
+                    y: 50,
+                    opacity: 0,
+                    scale: 0.8,
+                    stagger: 0.1,
+                    clearProps: "all"
+                }, "-=0.4");
+
+            if (document.querySelector("#title-ibu"))
+                tl.to("#title-ibu", {
+                    x: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    ease: "power2.out"
+                }, "-=0.5");
+
+            if (document.querySelectorAll("#grid-ibu .card-item").length > 0)
+                tl.from("#grid-ibu .card-item", {
+                    y: 50,
+                    opacity: 0,
+                    scale: 0.8,
+                    stagger: 0.1,
+                    clearProps: "all"
+                }, "-=0.6");
+
+            const cards = document.querySelectorAll('.card-item');
+
+            cards.forEach(card => {
+                card.addEventListener('mousemove', e => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    gsap.to(card, {
+                        duration: 0.5,
+                        rotationY: (x - rect.width / 2) / 20,
+                        rotationX: (rect.height / 2 - y) / 20,
+                        ease: "power2.out",
+                        transformPerspective: 1000
+                    });
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    gsap.to(card, {
+                        duration: 0.5,
+                        rotationY: 0,
+                        rotationX: 0,
+                        ease: "power2.out"
+                    });
+                });
+            });
+        });
+    </script>
+
 </x-app-main>
-
-<!-- GSAP -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-
-<style>
-    .riwayat-card {
-        background: white;
-        border-radius: 14px;
-        padding: 16px;
-        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
-        transition: 0.2s ease;
-    }
-
-    .riwayat-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-    }
-
-    .download-btn {
-        display: inline-flex;
-        align-items: center;
-        margin-top: 10px;
-        padding: 8px 14px;
-        background: #5daaaa;
-        color: white;
-        border-radius: 10px;
-        font-size: 13px;
-        transition: 0.2s;
-    }
-
-    .download-btn:hover {
-        background: #4e9191;
-        transform: scale(1.05);
-    }
-
-    .empty-text {
-        color: #777;
-        font-style: italic;
-        padding: 10px 0;
-    }
-</style>
-
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-
-        // Header
-        gsap.to("#headerBox", {
-            opacity: 1,
-            duration: 0.8,
-            y: 0,
-            ease: "power2.out"
-        });
-
-        // Subtitles
-        gsap.to("#sub1", {
-            opacity: 1,
-            y: 0,
-            duration: 0.6,
-            delay: 0.2
-        });
-        gsap.to("#sub2", {
-            opacity: 1,
-            y: 0,
-            duration: 0.6,
-            delay: 0.4
-        });
-
-        // Cards Balita
-        gsap.to("#balitaList .riwayat-card", {
-            opacity: 1,
-            y: 0,
-            duration: 0.5,
-            ease: "power2.out",
-            stagger: 0.12,
-            delay: 0.3
-        });
-
-        // Cards Ibu Hamil
-        gsap.to("#ibuList .riwayat-card", {
-            opacity: 1,
-            y: 0,
-            duration: 0.5,
-            ease: "power2.out",
-            stagger: 0.12,
-            delay: 0.5
-        });
-    });
-</script>

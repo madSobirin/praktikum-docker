@@ -109,6 +109,10 @@ Route::middleware(['auth', 'role:kader'])->group(function () {
     Route::post('/admin/pengguna/store', [UserManageController::class, 'store'])
         ->name('admin.pengguna.store');
 
+    Route::get('/users/{id}/edit', [UserManageController::class, 'edit'])->name('users.edit');
+
+    Route::put('/users/{id}', [UserManageController::class, 'update'])->name('users.update');
+
     Route::delete('/admin/pengguna/{id}', [UserManageController::class, 'destroy'])
         ->name('admin.pengguna.destroy');
 
