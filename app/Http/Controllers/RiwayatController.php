@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Balita;
 
 
 
@@ -18,7 +17,7 @@ class RiwayatController extends Controller
         // Ambil semua balita milik user ini
         $balitas = $user->balitas()->with([
             'pemeriksaans' => function ($q) {
-                $q->latest()->first();
+                $q->latest();
             }
         ])->get();
 
