@@ -39,7 +39,7 @@ class UserManageController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->back()->with('success', 'Pengguna berhasil didaftarkan.');
+        return redirect()->route('admin.pengguna.index')->with('success', 'Pengguna berhasil didaftarkan.');
     }
 
     public function edit($id)

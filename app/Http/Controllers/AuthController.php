@@ -21,10 +21,24 @@ class AuthController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:100'],
-            'email' => ['required', 'string', 'email', 'max:100', 'unique:users,email'],
+
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:100',
+                'unique:users,email',
+                'regex:/^[A-Za-z0-9._%+-]+@gmail\.com$/',
+            ],
+
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'role' => ['required', 'in:pengguna,kader'],
+
+        ], [
+            'email.regex' => 'Domain tidak valid',
+            'email.unique' => 'Email sudah digunakan.',
         ]);
+
 
         User::create([
             'name' => $validated['name'],

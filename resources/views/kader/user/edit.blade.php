@@ -5,7 +5,7 @@
     <main class="relative min-h-screen bg-slate-50 p-4 md:p-8 flex justify-center items-start pt-10">
 
         <div
-            class="fixed top-0 left-0 w-full h-80 bg-gradient-to-r from-blue-600 to-indigo-700 -z-10 rounded-b-[50px] shadow-lg">
+            class="fixed top-0 left-0 w-full h-80 bg-gradient-to-r from-posyanduDark to-ed -z-10 rounded-b-[50px] shadow-lg">
         </div>
         <div class="fixed top-20 right-10 w-64 h-64 bg-white/10 rounded-full blur-3xl -z-10"></div>
         <div class="fixed top-40 left-20 w-40 h-40 bg-purple-500/20 rounded-full blur-2xl -z-10"></div>
@@ -14,14 +14,14 @@
 
             <div class="gsap-header opacity-0 -translate-y-5 flex justify-between items-center mb-6 text-white">
                 <div>
-                    <h1 class="text-2xl font-bold">Edit Data Pengguna</h1>
-                    <p class="text-blue-100 text-sm opacity-90">Perbarui informasi dan hak akses pengguna.</p>
+                    <h1 class="text-2xl font-bold text-ed">Edit Data Pengguna</h1>
+                    <p class="text-ed text-sm opacity-90">Perbarui informasi dan hak akses pengguna.</p>
                 </div>
-                <a href="{{ route('admin.pengguna.index') }}"
-                    class="group flex items-center bg-white/10 hover:bg-white/20 backdrop-blur-sm px-4 py-2 rounded-xl transition-all border border-white/20">
+                {{-- <a href="{{ route('admin.pengguna.index') }}"
+                    class="group flex items-center bg-ed hover:bg-posyanduDark backdrop-blur-sm px-4 py-2 rounded-xl transition-all border border-white/20">
                     <i class="fas fa-arrow-left mr-2 group-hover:-translate-x-1 transition-transform"></i>
                     <span>Kembali</span>
-                </a>
+                </a> --}}
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -29,13 +29,13 @@
                 <div class="gsap-card opacity-0 -translate-x-5 lg:col-span-1">
                     <div
                         class="bg-white rounded-2xl shadow-xl shadow-indigo-100 p-6 text-center border border-gray-100 h-full relative overflow-hidden">
-                        <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 to-purple-500">
+                        <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-ed to-posyanduDark">
                         </div>
 
                         <div
                             class="w-24 h-24 mx-auto bg-gray-100 rounded-full flex items-center justify-center mb-4 border-4 border-white shadow-md relative">
                             <i class="fas fa-user text-4xl text-gray-400"></i>
-                            <div class="absolute bottom-1 right-1 w-6 h-6 bg-green-500 border-2 border-white rounded-full"
+                            <div class="absolute bottom-1 right-1 w-6 h-6 bg-ed border-2 border-white rounded-full animate-bounce"
                                 title="Active"></div>
                         </div>
 
@@ -115,8 +115,6 @@
                                                 </option>
                                                 <option value="kader" {{ $user->role == 'kader' ? 'selected' : '' }}>
                                                     Kader Posyandu</option>
-                                                <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>
-                                                    Administrator</option>
                                             </select>
                                             <div
                                                 class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
@@ -162,7 +160,7 @@
                                         Batal
                                     </a>
                                     <button type="submit"
-                                        class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 hover:-translate-y-0.5 transition-all duration-300">
+                                        class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-ed to-posyanduDark text-white font-medium shadow-lg shadow-blue-500/30 hover:shadow-ed hover:-translate-y-0.5 transition-all duration-300 cursor-pointer">
                                         <i class="fas fa-save mr-2"></i> Simpan Perubahan
                                     </button>
                                 </div>
