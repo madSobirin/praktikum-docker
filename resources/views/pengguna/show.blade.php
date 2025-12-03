@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <main class="min-h-screen w-full p-4 md:p-8 flex justify-center items-center">
+    <main class="min-h-screen w-full p-4 md:p-8 flex justify-center items-center ml-5">
 
         <div class="w-full max-w-4xl relative">
 

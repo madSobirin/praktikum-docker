@@ -32,7 +32,7 @@ class AuthController extends Controller
             ],
 
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'role' => ['required', 'in:pengguna,kader'],
+            // 'role' => ['required', 'in:kader'],
 
         ], [
             'email.regex' => 'Domain tidak valid',
@@ -44,7 +44,7 @@ class AuthController extends Controller
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
-            'role' => $validated['role'],
+            // 'role' => $validated['role'],
         ]);
 
         return redirect()

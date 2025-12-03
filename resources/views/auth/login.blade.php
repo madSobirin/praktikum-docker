@@ -1,132 +1,205 @@
 <x-app>
     <x-slot:title>{{ $title }}</x-slot:title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <div class="flex min-h-screen items-center justify-center bg-posyandu bg-cover bg-center px-4 md:px-0">
-        <div class="flex w-full max-w-6xl rounded-lg shadow-lg overflow-hidden">
+    {{-- GSAP --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
-            <!-- Sisi Kiri (Form Login) -->
-            <div class="w-full md:w-1/2 flex flex-col items-center justify-center bg-form p-8">
-                <div class="w-full max-w-md">
-                    <h2 class="text-center text-2xl font-bold text-gray-900">Masuk</h2>
-                    <p class="mt-2 text-center text-sm text-gray-600">
-                        Gunakan akun Anda untuk mengakses sistem Posyandu
-                    </p>
+    <div class="min-h-screen w-full bg-slate-50 flex items-center justify-center p-4 relative overflow-hidden">
 
-                    <!-- ALERT: Pesan sukses -->
-                    @if (session('success'))
-                        <div id="alert-success"
-                            class="flex items-center p-4 mb-4 mt-4 text-green-800 rounded-lg bg-green-50" role="alert">
-                            <svg class="shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                fill="currentColor" viewBox="0 0 20 20">
-                                <path
-                                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-                            </svg>
-                            <div class="ms-3 text-sm font-medium">
-                                {{ session('success') }}
+        {{-- Background Decorations --}}
+        <div class="fixed top-[-10%] left-[-10%] w-96 h-96 bg-blue-100 rounded-full blur-3xl opacity-60 -z-10"></div>
+        <div class="fixed bottom-[-10%] right-[-10%] w-96 h-96 bg-teal-100 rounded-full blur-3xl opacity-60 -z-10"></div>
+
+        <div id="login-card"
+            class="flex w-full max-w-5xl bg-white rounded-3xl shadow-2xl overflow-hidden opacity-0 translate-y-10">
+
+            <!-- Sisi Kiri -->
+            <div class="w-full lg:w-1/2 p-8 md:p-12 lg:p-16 flex flex-col justify-center">
+
+                {{-- Header --}}
+                <div class="gsap-item text-center lg:text-left mb-10">
+                    <div
+                        class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-teal-100 text-teal-600 mb-4 shadow-sm">
+                        <i class="fas fa-heart-pulse text-2xl"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold text-gray-800">Selamat Datang</h2>
+                    <p class="mt-2 text-gray-500">Silakan masuk untuk mengelola data Posyandu.</p>
+                </div>
+
+                {{-- FORM LOGIN --}}
+                <form action="{{ route('login') }}" method="POST" class="space-y-6">
+                    @csrf
+
+                    {{-- Email --}}
+                    <div class="gsap-item group">
+                        <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">Email</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <i class="fas fa-envelope text-gray-400 group-focus-within:text-teal-500"></i>
                             </div>
-                            <button type="button"
-                                class="success ms-auto -mx-1.5 -my-1.5 bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex items-center justify-center h-8 w-8"
-                                data-dismiss-target="#alert-success" aria-label="Close">
-                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    fill="none" viewBox="0 0 14 14">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                </svg>
+                            <input id="email" type="email" name="email" value="{{ old('email') }}" required
+                                autocomplete="email" placeholder="nama@email.com"
+                                class="w-full pl-11 pr-4 py-3.5 bg-gray-50 border  rounded-xl 
+                                       text-gray-900 placeholder-gray-400 focus:bg-white 
+                                       focus:outline-none focus:ring-2 focus:ring-teal-500/20 
+                                       focus:border-teal-500 transition-all 
+                                       @error('email') border-red-500 ring-red-200 @enderror">
+                        </div>
+                        @error('email')
+                            <p class="mt-1 text-xs text-red-600 flex items-center gap-1">
+                                <i class="fas fa-info-circle"></i> {{ $message }}
+                            </p>
+                        @enderror
+                    </div>
+
+                    {{-- Password --}}
+                    <div class="gsap-item group">
+                        <div class="flex items-center justify-between mb-2">
+                            <label for="password" class="block text-sm font-semibold text-gray-700">Kata Sandi</label>
+                            <a href="{{ route('password.request') }}"
+                                class="text-xs font-semibold text-teal-600 hover:text-teal-800">Lupa kata sandi?</a>
+                        </div>
+
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <i class="fas fa-lock text-gray-400 group-focus-within:text-teal-500"></i>
+                            </div>
+
+                            <input id="password" type="password" name="password" required placeholder="••••••••"
+                                class="w-full pl-11 pr-11 py-3.5 bg-gray-50 border  rounded-xl 
+                                       text-gray-900 placeholder-gray-400 focus:bg-white 
+                                       focus:outline-none focus:ring-2 focus:ring-teal-500/20 
+                                       focus:border-teal-500 transition-all 
+                                       @error('password') border-red-500 ring-red-200 @enderror">
+
+                            {{-- Toggle Password --}}
+                            <button type="button" onclick="togglePassword()"
+                                class="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-gray-600">
+                                <i class="fas fa-eye" id="eyeIcon"></i>
                             </button>
                         </div>
-                    @endif
 
-                    <!-- ALERT: Pesan error -->
-                    @if (session('error'))
-                        <div id="alert-error" class="flex items-center p-4 mb-4 mt-4 text-red-800 rounded-lg bg-red-50"
-                            role="alert">
-                            <svg class="shrink-0 w-4 h-4 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                fill="currentColor" viewBox="0 0 20 20">
-                                <path
-                                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm.5 5a1.5 1.5 0 1 1-1.5 1.5A1.5 1.5 0 0 1 10.5 5Zm-1 9a1 1 0 1 1 2 0v1h-2Z" />
-                            </svg>
-                            <div class="ms-3 text-sm font-medium">
-                                {{ session('error') }}
-                            </div>
-                            <button type="button"
-                                class=" ms-auto -mx-1.5 -my-1.5 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex items-center justify-center h-8 w-8"
-                                data-dismiss-target="#alert-error" aria-label="Close">
-                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    fill="none" viewBox="0 0 14 14">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                </svg>
-                            </button>
-                        </div>
-                    @endif
+                        @error('password')
+                            <p class="mt-1 text-xs text-red-600 flex items-center gap-1">
+                                <i class="fas fa-info-circle"></i> {{ $message }}
+                            </p>
+                        @enderror
+                    </div>
 
-                    <form action="{{ route('login') }}" method="POST" class="mt-8 space-y-5">
-                        @csrf
+                    {{-- Tombol Login --}}
+                    <div class="gsap-item pt-2">
+                        <button type="submit"
+                            class="w-full rounded-xl bg-gradient-to-r from-teal-500 to-emerald-600 
+                                   hover:from-teal-600 hover:to-emerald-700 text-white font-bold 
+                                   py-3.5 px-4 shadow-lg shadow-teal-500/30 transform 
+                                   transition-all hover:-translate-y-0.5 active:scale-95">
+                            <span>Masuk Sekarang</span>
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
 
-                        <!-- Email -->
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                            <div class="relative mt-2">
-                                <input id="email" type="email" name="email" value="{{ old('email') }}" required
-                                    autocomplete="email" placeholder="Email@gmail.com"
-                                    class="w-full rounded-md border-gray-300 px-3 py-2 pl-10 text-gray-900 shadow-sm 
-                                    focus:border-blue-500 focus:ring-blue-500 sm:text-sm" />
-                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                    <i class="fas fa-envelope text-gray-400"></i>
-                                </div>
-                            </div>
-                            @error('email')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
+                    {{-- Link Register --}}
+                    <div class="gsap-item text-center mt-6">
+                        <p class="text-sm text-gray-600">
+                            Belum punya akun?
+                            <a href="{{ route('register') }}" class="font-bold text-teal-600 hover:text-teal-800">
+                                Daftar disini
+                            </a>
+                        </p>
+                    </div>
+                </form>
+            </div>
 
-                        <!-- Password -->
-                        <div>
-                            <div class="flex items-center justify-between">
-                                <label for="password" class="block text-sm font-medium text-gray-700">Kata Sandi</label>
-                                <a href="{{ route('password.request') }}"
-                                    class="text-sm font-semibold text-lamp-button hover:text-lamp-button-hover">
-                                    Lupa kata sandi?
-                                </a>
-                            </div>
-                            <div class="relative mt-2">
-                                <input id="password" type="password" name="password" required
-                                    autocomplete="current-password" placeholder="Masukkan kata sandi"
-                                    class="w-full rounded-md border-gray-300 pl-10 pr-3 py-2 text-gray-900 shadow-sm 
-                                    focus:border-blue-500 focus:ring-blue-500 sm:text-sm" />
-                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                    <i class="fas fa-lock text-gray-400"></i>
-                                </div>
-                            </div>
-                            @error('password')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <!-- Tombol Login -->
-                        <div>
-                            <button type="submit"
-                                class="w-full rounded-md bg-lamp-button px-4 py-3 text-sm font-semibold text-white shadow-sm 
-                                hover:bg-lamp-button-hover focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                                Masuk
-                            </button>
-                        </div>
-                    </form>
-
-                    <!-- Link ke Register -->
-                    <p class="mt-6 text-center text-sm text-gray-600">
-                        Belum punya akun?
-                        <a href="{{ route('register') }}"
-                            class="font-semibold text-lamp-button hover:text-lamp-button-hover">
-                            Daftar sekarang
-                        </a>
-                    </p>
+            {{-- Sisi Kanan --}}
+            <div class="hidden lg:flex lg:w-1/2 relative bg-gray-100">
+                <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('/img/posyandu.png')">
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-br from-teal-900/80 to-blue-900/60 mix-blend-multiply">
+                </div>
+                <div class="absolute bottom-0 left-0 w-full p-12 text-white z-10">
+                    <div class="gsap-image-text translate-y-10 opacity-0">
+                        <h3 class="text-3xl font-bold mb-2">Sistem Informasi Posyandu</h3>
+                        <p class="text-teal-100 text-lg opacity-90">
+                            Memudahkan pemantauan kesehatan ibu dan anak serta pengelolaan jadwal kegiatan secara
+                            digital.
+                        </p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Sisi Kanan (Gambar) -->
-            <div class="hidden md:flex md:w-1/2 bg-cover bg-center" style="background-image: url('/img/posyandu.png');">
-            </div>
         </div>
     </div>
+
+    {{-- GSAP --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            gsap.timeline({
+                    defaults: {
+                        ease: "power3.out"
+                    }
+                })
+                .to("#login-card", {
+                    duration: 1,
+                    opacity: 1,
+                    y: 0
+                })
+                .from(".gsap-item", {
+                    duration: .6,
+                    y: 20,
+                    opacity: 0,
+                    stagger: .1
+                }, "-=.5")
+                .to(".gsap-image-text", {
+                    duration: .8,
+                    y: 0,
+                    opacity: 1
+                }, "-=.5");
+        });
+
+        function togglePassword() {
+            const input = document.getElementById('password');
+            const icon = document.getElementById('eyeIcon');
+            const show = input.type === 'password';
+            input.type = show ? 'text' : 'password';
+            icon.classList.toggle('fa-eye', !show);
+            icon.classList.toggle('fa-eye-slash', show);
+        }
+    </script>
+
+    {{-- SweetAlert --}}
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: '{{ session('success') }}',
+                confirmButtonColor: '#10b981',
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'
+                }
+            });
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Terjadi Kesalahan!',
+                text: '{{ session('error') }}',
+                confirmButtonColor: '#ef4444',
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'
+                }
+            });
+        </script>
+    @endif
+
 </x-app>

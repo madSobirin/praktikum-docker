@@ -1,33 +1,34 @@
-<x-app-main title="Pemeriksaan">
-    <main>
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
-            <div class="flex-1">
-                <h1 class="text-2xl font-bold text-gray-800">
-                    Pemeriksaan & Jadwal Posyandu
+<x-app-main title="Pemeriksaan & Jadwal">
+
+    <!-- GSAP Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+    <main class="ml-2 md:ml-2 min-h-screen pb-10">
+
+        <!-- Header Section -->
+        <div
+            class="gsap-header opacity-0 translate-y-5 mb-6 flex flex-col md:flex-row md:justify-between md:items-center gap-3">
+            <div>
+                <h1 class="text-lg md:text-2xl font-bold text-gray-800 flex items-center gap-2">
+                    <i class="fas fa-heartbeat text-posyanduu text-xl"></i>
+                    Pemeriksaan & Jadwal
                 </h1>
-                <p class="text-gray-600">
-                    Kelola pemeriksaan dan jadwal kegiatan posyandu
+                <p class="text-gray-600 text-xs md:text-sm">
+                    Kelola data pemeriksaan kesehatan dan jadwal kegiatan
                 </p>
             </div>
-            <div class="flex-shrink-0">
+
+            <div class="flex justify-start md:justify-end">
                 <a href="{{ route('pemeriksaan.create') }}"
-                    class="cursor-pointer bg-button hover:bg-buttonhover transition-colors duration-200 text-white px-4 py-2 rounded-lg flex items-center shadow-sm w-full md:w-auto justify-center md:justify-start">
-                    <i class="fas fa-plus mr-2"></i>
-                    Pemeriksaan Baru
+                    class="gsap-add opacity-0 bg-button hover:bg-buttonhover text-white text-xs md:text-sm px-3 py-2 md:px-4 md:py-2 rounded-lg flex items-center gap-2 transition-all duration-200 shadow-sm hover:shadow-md">
+                    <i class="fas fa-plus-circle"></i> Pemeriksaan Baru
                 </a>
             </div>
         </div>
 
+        <!-- Alpine Data Scope -->
         <div x-data="{
             activeTab: new URLSearchParams(window.location.search).get('tab') || 'pemeriksaan',
-            underlineLeft: 0,
-            underlineWidth: 0,
-            updateUnderline($el) {
-                if ($el) {
-                    this.underlineLeft = $el.offsetLeft;
-                    this.underlineWidth = $el.offsetWidth;
-                }
-            },
             deleteConfirmation(event) {
                 event.preventDefault();
                 const form = event.target.closest('form');
@@ -47,207 +48,217 @@
                 });
             }
         }" x-init="@if(session('success'))
-        Swal.fire({
-            icon: 'success',
-            title: 'Berhasil!',
-            text: '{{ session('success') }}',
-            confirmButtonColor: '#70b2b2',
-        });
+        Swal.fire({ icon: 'success', title: 'Berhasil!', text: '{{ session('success') }}', confirmButtonColor: '#70b2b2' });
         @endif
         @if(session('error'))
-        Swal.fire({
-            icon: 'error',
-            title: 'Gagal!',
-            text: '{{ session('error') }}',
-            confirmButtonColor: '#e74c3c',
-        });
-        @endif
-        
-        $nextTick(() => { updateUnderline($refs[activeTab + 'Tab']); });" class="bg-white rounded-xl shadow-md mb-6 overflow-hidden">
+        Swal.fire({ icon: 'error', title: 'Gagal!', text: '{{ session('error') }}', confirmButtonColor: '#e74c3c' });
+        @endif">
 
-            <nav class="flex justify-start relative border-b border-gray-200 p-4">
-                <button x-ref="pemeriksaanTab" @click="activeTab = 'pemeriksaan'; updateUnderline($el)"
-                    :class="activeTab === 'pemeriksaan' ? 'text-posyanduu' : 'text-gray-500 hover:text-gray-700'"
-                    class="relative py-3 px-6 text-center font-medium text-sm whitespace-nowrap transition-colors">
-                    Pemeriksaan
-                </button>
+            <!-- Tabs Navigation -->
+            <div class="gsap-tabs opacity-0 translate-y-5 bg-white rounded-xl shadow-md mb-6">
+                <div class="border-b border-gray-200">
+                    <nav class="flex -mb-px">
+                        <button @click="activeTab = 'pemeriksaan'"
+                            :class="activeTab === 'pemeriksaan' ? 'border-b-2 border-posyanduu text-posyanduu font-bold' :
+                                'text-gray-500 hover:text-gray-700 border-transparent'"
+                            class="py-4 px-6 text-center text-sm font-medium transition-colors flex items-center gap-2 outline-none focus:outline-none">
+                            <i class="fas fa-notes-medical"
+                                :class="activeTab === 'pemeriksaan' ? 'text-posyanduu' : 'text-gray-400'"></i>
+                            Data Pemeriksaan
+                        </button>
 
-                <button x-ref="jadwalTab" @click="activeTab = 'jadwal'; updateUnderline($el)"
-                    :class="activeTab === 'jadwal' ? 'text-posyanduu' : 'text-gray-500 hover:text-gray-700'"
-                    class="relative py-3 px-6 text-center font-medium text-sm whitespace-nowrap transition-colors">
-                    Jadwal Posyandu
-                </button>
+                        <button @click="activeTab = 'jadwal'"
+                            :class="activeTab === 'jadwal' ? 'border-b-2 border-posyanduu text-posyanduu font-bold' :
+                                'text-gray-500 hover:text-gray-700 border-transparent'"
+                            class="py-4 px-6 text-center text-sm font-medium transition-colors flex items-center gap-2 outline-none focus:outline-none">
+                            <i class="fas fa-calendar-alt"
+                                :class="activeTab === 'jadwal' ? 'text-posyanduu' : 'text-gray-400'"></i>
+                            Jadwal Posyandu
+                        </button>
+                    </nav>
+                </div>
+            </div>
 
-                <div class="absolute bottom-0 h-0.5 bg-posyanduu transition-all duration-300 ease-out"
-                    :style="`left: ${underlineLeft}px; width: ${underlineWidth}px;`"></div>
-            </nav>
+            <!-- Content Area -->
+            <div
+                class="gsap-content opacity-0 translate-y-8 bg-white rounded-xl p-4 md:p-6 shadow-md min-h-[400px] relative">
 
-            <div class="p-6 bg-white rounded-lg shadow-lg">
+                <!-- TAB 1: PEMERIKSAAN -->
+                <!-- Menambahkan logika transition enter dan leave agar halus -->
                 <div x-show="activeTab === 'pemeriksaan'"
-                    x-transition:enter="transition ease-out duration-300 delay-300"
+                    x-transition:enter="transition ease-out duration-300 delay-200"
                     x-transition:enter-start="opacity-0 translate-y-2"
                     x-transition:enter-end="opacity-100 translate-y-0"
-                    x-transition:leave="transition ease-in duration-300"
+                    x-transition:leave="transition ease-in duration-200"
                     x-transition:leave-start="opacity-100 translate-y-0"
                     x-transition:leave-end="opacity-0 translate-y-2">
 
-                    <div class="overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
-                        <table class="min-w-full text-sm text-left text-gray-700 border border-gray-200 rounded-lg">
-                            <thead class="bg-gray-50 text-gray-600">
-                                <tr>
-                                    <th class="px-4 py-3 whitespace-nowrap">Tanggal Pemeriksaan</th>
-                                    <th class="px-4 py-3 whitespace-nowrap">Jenis Pemeriksaan</th>
-                                    <th class="px-4 py-3 whitespace-nowrap">Nama</th>
-                                    <th class="px-4 py-3 whitespace-nowrap">Status</th>
-                                    <th class="px-4 py-3 whitespace-nowrap text-center">Aksi</th>
+                    <div class="overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="bg-gray-50">
+                                <tr class="text-left border-b text-gray-600">
+                                    <th class="py-3 px-3 text-xs font-semibold uppercase"><i
+                                            class="far fa-clock mr-1 text-gray-400"></i> Waktu</th>
+                                    <th class="py-3 px-3 text-xs font-semibold uppercase"><i
+                                            class="fas fa-tag mr-1 text-gray-400"></i> Jenis</th>
+                                    <th class="py-3 px-3 text-xs font-semibold uppercase"><i
+                                            class="fas fa-user mr-1 text-gray-400"></i> Nama Pasien</th>
+                                    <th class="py-3 px-3 text-xs font-semibold uppercase"><i
+                                            class="fas fa-heartbeat mr-1 text-gray-400"></i> Status</th>
+                                    <th class="py-3 px-3 text-xs font-semibold uppercase text-center"><i
+                                            class="fas fa-cog mr-1 text-gray-400"></i> Aksi</th>
                                 </tr>
                             </thead>
-
-                            <tbody>
+                            <tbody class="divide-y text-gray-800">
                                 @forelse($pemeriksaans as $p)
-                                    <tr class="border-t hover:bg-gray-50 transition">
-                                        <!-- TANGGAL -->
-                                        <td class="px-4 py-3 whitespace-nowrap">
-                                            {{ \Carbon\Carbon::parse($p->tanggal)->format('d M Y') }}<br>
-                                            <span class="text-xs text-gray-500">
-                                                {{ \Carbon\Carbon::parse($p->tanggal)->format('H:i') }}
-                                            </span>
-                                        </td>
-
-                                        <!-- TIPE -->
-                                        <td class="px-4 py-3 flex items-center gap-2 whitespace-nowrap">
-                                            <div
-                                                class="w-8 h-8 flex items-center justify-center rounded-full 
-                            {{ $p->tipe === 'balita' ? 'bg-blue-100' : 'bg-pink-100' }}">
-                                                <i
-                                                    class="fas 
-                                {{ $p->tipe === 'balita' ? 'fa-baby text-blue-500' : 'fa-female text-pink-500' }}
-                                text-sm">
-                                                </i>
+                                    <tr class="hover:bg-gray-50 transition duration-150">
+                                        <!-- Waktu -->
+                                        <td class="py-3 px-3 whitespace-nowrap">
+                                            <div class="flex flex-col">
+                                                <span
+                                                    class="font-bold">{{ \Carbon\Carbon::parse($p->tanggal)->format('d M Y') }}</span>
+                                                <span
+                                                    class="text-xs text-gray-500">{{ \Carbon\Carbon::parse($p->tanggal)->format('H:i') }}
+                                                    WIB</span>
                                             </div>
-                                            <span>Pemeriksaan {{ ucwords(str_replace('_', ' ', $p->tipe)) }}</span>
                                         </td>
 
-                                        <!-- NAMA -->
-                                        <td class="px-4 py-3 whitespace-nowrap">
+                                        <!-- Jenis -->
+                                        <td class="py-3 px-3 whitespace-nowrap">
+                                            <div class="flex items-center gap-2">
+                                                @if ($p->tipe === 'balita')
+                                                    <span class="text-blue-500 bg-blue-50 p-1 rounded"><i
+                                                            class="fas fa-baby"></i></span>
+                                                    <span>Balita</span>
+                                                @else
+                                                    <span class="text-pink-500 bg-pink-50 p-1 rounded"><i
+                                                            class="fas fa-female"></i></span>
+                                                    <span>Ibu Hamil</span>
+                                                @endif
+                                            </div>
+                                        </td>
+
+                                        <!-- Nama -->
+                                        <td class="py-3 px-3 whitespace-nowrap font-medium">
                                             {{ $p->tipe === 'balita' ? $p->balita->nama_balita : $p->ibu_hamil->nama_ibu_hamil }}
                                         </td>
 
-                                        <!-- STATUS -->
-                                        <td class="px-4 py-3 whitespace-nowrap">
+                                        <!-- Status -->
+                                        <td class="py-3 px-3 whitespace-nowrap">
                                             @if ($p->tipe === 'balita')
-                                                @if ($p->status_gizi === 'Gizi Baik')
-                                                    <span
-                                                        class="px-2 py-1 bg-green-100 text-green-600 text-xs rounded-full">
-                                                        {{ $p->status_gizi }}
-                                                    </span>
-                                                @elseif($p->status_gizi === 'Gizi Buruk')
-                                                    <span
-                                                        class="px-2 py-1 bg-orange-100 text-orange-600 text-xs rounded-full">
-                                                        {{ $p->status_gizi }}
-                                                    </span>
-                                                @else
-                                                    <span
-                                                        class="px-2 py-1 bg-red-100 text-red-600 text-xs rounded-full">
-                                                        {{ $p->status_gizi }}
-                                                    </span>
-                                                @endif
+                                                @php
+                                                    $color = match ($p->status_gizi) {
+                                                        'Gizi Baik' => 'text-green-600 bg-green-100',
+                                                        'Gizi Buruk' => 'text-orange-600 bg-orange-100',
+                                                        default => 'text-red-600 bg-red-100',
+                                                    };
+                                                @endphp
+                                                <span
+                                                    class="px-2 py-1 text-xs rounded-full font-medium {{ $color }}">
+                                                    {{ $p->status_gizi }}
+                                                </span>
                                             @else
                                                 <span
-                                                    class="px-2 py-1 text-xs rounded-full
-                                {{ $p->status_ibu === 'Kondisi Baik' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600' }}">
+                                                    class="px-2 py-1 text-xs rounded-full font-medium {{ $p->status_ibu === 'Kondisi Baik' ? 'text-green-600 bg-green-100' : 'text-red-600 bg-red-100' }}">
                                                     {{ $p->status_ibu }}
                                                 </span>
                                             @endif
                                         </td>
 
-                                        <!-- AKSI -->
-                                        <td class="px-4 py-3 text-center whitespace-nowrap">
-                                            <div class="flex justify-center gap-3 text-base">
-
-                                                <!-- Lihat -->
+                                        <!-- Aksi -->
+                                        <td class="py-3 px-3 text-center">
+                                            <div class="flex items-center justify-center gap-3">
                                                 <a href="{{ route('pemeriksaan.show', $p->id) }}"
-                                                    class="text-blue-600 hover:text-blue-800 transition" title="Lihat">
-                                                    <i class="fas fa-eye"></i>
+                                                    class="text-blue-500 hover:text-blue-700" title="Lihat">
+                                                    <i class="fas fa-eye text-sm"></i>
                                                 </a>
-
-                                                <!-- Edit -->
                                                 <a href="{{ route('pemeriksaan.edit', $p->id) }}"
-                                                    class="text-yellow-500 hover:text-yellow-600 transition"
-                                                    title="Edit">
-                                                    <i class="fas fa-edit"></i>
+                                                    class="text-yellow-500 hover:text-yellow-600" title="Edit">
+                                                    <i class="fas fa-edit text-sm"></i>
                                                 </a>
-
-                                                <!-- Hapus -->
                                                 <form action="{{ route('pemeriksaan.destroy', $p->id) }}"
-                                                    method="POST" class="inline">
+                                                    method="POST" class="inline-block">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" @click.prevent="deleteConfirmation"
-                                                        class="text-red-500 hover:text-red-600 transition"
-                                                        title="Hapus">
-                                                        <i class="fas fa-trash"></i>
+                                                        class="text-red-500 hover:text-red-600" title="Hapus">
+                                                        <i class="fas fa-trash text-sm"></i>
                                                     </button>
                                                 </form>
                                             </div>
                                         </td>
                                     </tr>
-
                                 @empty
                                     <tr>
-                                        <td colspan="5" class="text-center py-4 text-gray-500">
-                                            Belum ada data pemeriksaan
+                                        <td colspan="5" class="py-8 text-center text-gray-500">
+                                            <div class="flex flex-col items-center">
+                                                <i class="fas fa-clipboard-list text-3xl mb-2 text-gray-300"></i>
+                                                <span>Belum ada data pemeriksaan</span>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforelse
                             </tbody>
                         </table>
                     </div>
-
                 </div>
 
-                <div x-show="activeTab === 'jadwal'" x-transition:enter="transition ease-out duration-300 delay-300"
+                <!-- TAB 2: JADWAL -->
+                <!-- Menggunakan logika transition yang sama -->
+                <div x-show="activeTab === 'jadwal'" style="display: none;"
+                    x-transition:enter="transition ease-out duration-300 delay-200"
                     x-transition:enter-start="opacity-0 translate-y-2"
                     x-transition:enter-end="opacity-100 translate-y-0"
-                    x-transition:leave="transition ease-in duration-300"
+                    x-transition:leave="transition ease-in duration-200"
                     x-transition:leave-start="opacity-100 translate-y-0"
                     x-transition:leave-end="opacity-0 translate-y-2">
 
-                    <div class="flex justify-between items-center flex-wrap gap-2">
-                        <h1 class="text-sm md:text-xl font-bold text-gray-800">
-                            Kegiatan Mendatang
-                        </h1>
-
+                    <div class="flex justify-between items-center mb-4 pb-2 border-b border-gray-100">
+                        <h3 class="text-sm font-bold text-gray-700 uppercase tracking-wide">Daftar Kegiatan</h3>
                         <a href="{{ route('jadwal.create') }}"
-                            class="bg-button text-white flex items-center justify-center
-               text-xs md:text-sm px-3 py-2 md:px-4 md:py-2
-               rounded-md hover:bg-buttonhover transition-colors w-auto">
-
-                            <i class="fa-solid fa-calendar-plus mr-2"></i>
-                            Tambah Jadwal
+                            class="text-xs font-medium text-posyanduu hover:text-posyanduDark flex items-center gap-1">
+                            <i class="fas fa-plus"></i> Tambah Jadwal
                         </a>
                     </div>
-                    <div class="mt-6">
+
+                    <div class="grid grid-cols-1 gap-3">
                         @forelse ($jadwals as $jadwal)
-                            <div class="flex items-center p-4 border border-gray-200 rounded-lg mt-4">
+                            <div
+                                class="group border border-gray-200 rounded-lg p-3 hover:shadow-md transition-all duration-200 flex items-center gap-3 bg-white">
+                                <!-- Date Badge -->
                                 <div
-                                    class="bg-posyanduu text-white rounded-lg w-8 h-8 md:w-12 md:h-12 flex flex-col items-center justify-center flex-shrink-0">
-                                    <span class="font-bold text-md md:text-lg">
-                                        {{ \Carbon\Carbon::parse($jadwal->waktu_mulai)->format('d') }}
-                                    </span>
+                                    class="flex-shrink-0 w-12 h-12 bg-blue-50 rounded-lg flex flex-col items-center justify-center text-posyanduu border border-blue-100">
+                                    <span
+                                        class="text-[10px] uppercase font-bold">{{ \Carbon\Carbon::parse($jadwal->waktu_mulai)->format('M') }}</span>
+                                    <span
+                                        class="text-lg font-bold leading-none">{{ \Carbon\Carbon::parse($jadwal->waktu_mulai)->format('d') }}</span>
                                 </div>
-                                <div class="ml-4 flex-1">
-                                    <h3 class="font-medium text-xs md:text-sm text-gray-800">{{ $jadwal->keterangan }}
-                                    </h3>
-                                    <p class="text-xs text-gray-600 md:text-sm">
-                                        {{ \Carbon\Carbon::parse($jadwal->waktu_mulai)->format('H:i') }} -
-                                        {{ \Carbon\Carbon::parse($jadwal->waktu_selesai)->format('H:i') }}
-                                        <span class="mx-1">•</span> {{ $jadwal->lokasi }}
-                                    </p>
+
+                                <!-- Content -->
+                                <div class="flex-1 min-w-0">
+                                    <h4
+                                        class="text-sm font-bold text-gray-800 truncate group-hover:text-posyanduu transition-colors">
+                                        {{ $jadwal->keterangan }}
+                                    </h4>
+                                    <div class="flex flex-wrap items-center gap-3 mt-1 text-xs text-gray-500">
+                                        <span class="flex items-center gap-1">
+                                            <i class="far fa-clock text-gray-400"></i>
+                                            {{ \Carbon\Carbon::parse($jadwal->waktu_mulai)->format('H:i') }} -
+                                            {{ \Carbon\Carbon::parse($jadwal->waktu_selesai)->format('H:i') }}
+                                        </span>
+                                        <span class="hidden md:inline text-gray-300">|</span>
+                                        <span class="flex items-center gap-1">
+                                            <i class="fas fa-map-marker-alt text-gray-400"></i>
+                                            {{ $jadwal->lokasi }}
+                                        </span>
+                                    </div>
                                 </div>
-                                <div class="flex space-x-3 ml-4">
+
+                                <!-- Actions -->
+                                <div
+                                    class="flex items-center gap-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
                                     <a href="{{ route('jadwal.edit', $jadwal->id) }}"
-                                        class="text-posyanduu hover:text-posyanduDark transition-colors" title="Edit">
+                                        class="text-gray-400 hover:text-yellow-500 transition-colors">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <form action="{{ route('jadwal.destroy', $jadwal->id) }}" method="POST"
@@ -255,22 +266,55 @@
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" @click.prevent="deleteConfirmation"
-                                            class="text-danger hover:text-red-600 transition-colors" title="Hapus">
+                                            class="text-gray-400 hover:text-red-500 transition-colors">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </form>
                                 </div>
                             </div>
                         @empty
-                            <div class="text-center text-gray-500 mt-10 py-8">
-                                <i class="fa-solid fa-calendar-xmark text-5xl mb-3 opacity-50"></i>
-                                <p class="text-lg font-medium">Belum ada jadwal posyandu.</p>
-                                <p class="text-sm">Silakan tambahkan jadwal baru untuk ditampilkan di sini.</p>
+                            <div class="text-center py-8 border border-dashed border-gray-200 rounded-lg">
+                                <i class="far fa-calendar-times text-2xl text-gray-300 mb-2"></i>
+                                <p class="text-sm text-gray-500">Belum ada jadwal kegiatan.</p>
                             </div>
                         @endforelse
                     </div>
                 </div>
+
             </div>
         </div>
     </main>
+
+    <!-- GSAP Animation -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const tl = gsap.timeline({
+                defaults: {
+                    ease: "power3.out"
+                }
+            });
+
+            tl.to(".gsap-header", {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.7
+                })
+                .to(".gsap-add", {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.6
+                }, "-=0.5")
+                .to(".gsap-tabs", {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.6
+                }, "-=0.4")
+                .to(".gsap-content", {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.6
+                }, "-=0.3");
+        });
+    </script>
+
 </x-app-main>
