@@ -269,7 +269,7 @@
                                             <option value="">-- Pilih Status --</option>
                                             <option value="Kondisi Baik">Kondisi Baik</option>
                                             <option value="Anemia">Anemia</option>
-                                            <option value="Resiko Tinggi">Resiko Tinggi</option>
+                                            {{-- <option value="Resiko Tinggi">Resiko Tinggi</option> --}}
                                         </select>
                                         <div
                                             class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">

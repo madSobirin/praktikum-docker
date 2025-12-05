@@ -2,171 +2,310 @@
 <html>
 
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Laporan Data Balita - {{ $data->nama_balita }}</title>
     <style>
         @page {
-            size: A4;
-            margin: 1in;
+            size: A4 portrait;
+            margin: 0cm 0cm;
         }
 
         body {
-            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin-top: 3cm;
+            margin-left: 2cm;
+            margin-right: 2cm;
+            margin-bottom: 2cm;
+            font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
             color: #333;
-            line-height: 1.6;
-            font-size: 14px;
+            line-height: 1.5;
+            font-size: 13px;
+            background-color: #fff;
         }
 
-        .header {
+        /* Elemen Dekoratif Header */
+        .header-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background-color: #0d9488;
+            /* Teal-600 Tailwind */
+        }
+
+        header {
+            position: fixed;
+            top: 0.8cm;
+            left: 2cm;
+            right: 2cm;
+            height: 2cm;
+            border-bottom: 2px solid #0d9488;
+            padding-bottom: 10px;
+        }
+
+        .header-content {
+            width: 100%;
+        }
+
+        .logo-placeholder {
+            width: 60px;
+            height: 60px;
+            /* background: #f0f0f0; */
+            float: left;
+            margin-right: 15px;
             text-align: center;
-            border-bottom: 2px solid #f0f0f0;
-            padding-bottom: 15px;
+            line-height: 60px;
+            font-weight: bold;
+            /* color: #999; */
+            border-radius: 50%;
+        }
+
+        .company-details h1 {
+            margin: 0;
+            font-size: 20px;
+            text-transform: uppercase;
+            color: #0d9488;
+            letter-spacing: 1px;
+        }
+
+        .company-details p {
+            margin: 2px 0;
+            font-size: 11px;
+            color: #666;
+        }
+
+        /* Judul Dokumen */
+        .doc-title {
+            text-align: center;
+            margin-top: 10px;
             margin-bottom: 30px;
         }
 
-        .header h1 {
-            margin: 0;
-            color: #70b2b2;
-            font-size: 24px;
-            font-weight: 600;
-        }
-
-        .header p {
-            margin: 5px 0 0;
-            font-size: 14px;
-            color: #555;
-        }
-
-        h2.section-title {
+        .doc-title h2 {
             font-size: 18px;
-            font-weight: 600;
-            background-color: #f9f9f9;
-            padding: 10px;
-            border-left: 4px solid #70b2b2;
-            margin-top: 30px;
-            margin-bottom: 15px;
+            font-weight: 700;
+            text-decoration: underline;
+            margin: 0;
         }
 
+        .doc-title span {
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* Styling Section */
+        .section-header {
+            background-color: #f0fdfa;
+            /* Teal-50 */
+            padding: 8px 15px;
+            border-left: 5px solid #0d9488;
+            margin-bottom: 15px;
+            margin-top: 25px;
+        }
+
+        .section-header h3 {
+            margin: 0;
+            font-size: 14px;
+            color: #134e4a;
+            text-transform: uppercase;
+        }
+
+        /* Tabel Professional */
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-bottom: 10px;
         }
 
-        table td {
-            padding: 10px 8px;
-            border: 1px solid #e0e0e0;
+        td {
+            padding: 8px 5px;
             vertical-align: top;
+            border-bottom: 1px solid #eee;
         }
 
-        table td.label {
-            font-weight: 600;
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .label-col {
             width: 35%;
-            background-color: #fafafa;
-            color: #444;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .value-col {
+            width: 65%;
+            color: #000;
+            font-weight: 500;
+        }
+
+        /* Status Badge */
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            background-color: #e6fffa;
+            color: #0d9488;
+            border: 1px solid #0d9488;
         }
 
         .no-data {
-            text-align: center;
-            color: #888;
-            font-style: italic;
             padding: 20px;
-            border: 1px solid #e0e0e0;
+            text-align: center;
+            background: #f9fafb;
+            color: #6b7280;
+            border: 1px dashed #d1d5db;
+            border-radius: 6px;
         }
 
-        .footer {
+        /* Footer */
+        footer {
             position: fixed;
-            bottom: -20px;
-            /* Posisikan di luar margin bawah */
-            left: 0;
-            right: 0;
-            height: 100px;
+            bottom: 0cm;
+            left: 0cm;
+            right: 0cm;
+            height: 1cm;
+            background-color: #f3f4f6;
+            text-align: center;
+            line-height: 1cm;
+            font-size: 10px;
+            color: #9ca3af;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .signature-section {
+            page-break-inside: avoid;
+            margin-top: 50px;
             text-align: right;
-            font-size: 12px;
-            color: #777;
         }
 
-        .footer-content {
-            width: 100%;
+        .signature-box {
+            display: inline-block;
+            width: 200px;
+            text-align: center;
         }
 
-        .footer .signature {
-            margin-top: 40px;
-            margin-right: 10px;
+        .signature-name {
+            margin-top: 60px;
+            font-weight: bold;
+            border-bottom: 1px solid #333;
+            display: inline-block;
+            min-width: 150px;
         }
     </style>
 </head>
 
 <body>
-    <div class="header">
-        <h1>Laporan Data Posyandu</h1>
-        <p>Data Peserta - Balita</p>
+
+    {{-- <div class="header-bg"></div> --}}
+
+    <header>
+        <div class="header-content">
+            <div class="logo-placeholder"><img src="img/elsimil.png" class="logo-image" height="60" width="60"
+                    alt="Logo"></div>
+            <div class="company-details">
+                <h1>POSYANDU MAWAR 01</h1>
+                <p>Jalan Raya Lohbener No. 123, Indramayu, Jawa Barat</p>
+                <p>Email: info@posyandu.id | Telp: (0234) 123456</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="doc-title">
+        <h2>LAPORAN DATA BALITA</h2>
+        <span>Dicetak pada: {{ \Carbon\Carbon::now()->isoFormat('D MMMM Y') }}</span>
     </div>
 
-    <h2 class="section-title">Data Diri Balita</h2>
+    <div class="section-header">
+        <h3>A. Informasi Data Diri</h3>
+    </div>
+
     <table>
         <tr>
-            <td class="label">Nama Lengkap</td>
-            <td>{{ $data->nama_balita ?? '-' }}</td>
+            <td class="label-col">Nama Lengkap</td>
+            <td class="value-col">: {{ $data->nama_balita ?? '-' }}</td>
         </tr>
         <tr>
-            <td class="label">NIK</td>
-            <td>{{ $data->nik ?? '-' }}</td>
+            <td class="label-col">NIK</td>
+            <td class="value-col">: {{ $data->nik ?? '-' }}</td>
         </tr>
         <tr>
-            <td class="label">Jenis Kelamin</td>
-            <td>{{ $data->jenis_kelamin ?? '-' }}</td>
+            <td class="label-col">Jenis Kelamin</td>
+            <td class="value-col">: {{ $data->jenis_kelamin ?? '-' }}</td>
         </tr>
         <tr>
-            <td class="label">Tanggal Lahir</td>
-            <td>{{ \Carbon\Carbon::parse($data->tgl_lahir)->isoFormat('D MMMM Y') ?? '-' }}</td>
+            <td class="label-col">Tempat, Tanggal Lahir</td>
+            <td class="value-col">: {{ $data->tempat_lahir ?? 'Indramayu' }},
+                {{ \Carbon\Carbon::parse($data->tgl_lahir)->isoFormat('D MMMM Y') }}</td>
         </tr>
         <tr>
-            <td class="label">Usia</td>
-            <td>{{ $data->usia_tahun ?? 0 }} tahun {{ $data->usia_bulan ?? 0 }} bulan</td>
+            <td class="label-col">Usia Saat Ini</td>
+            <td class="value-col">: {{ $data->usia_tahun ?? 0 }} Tahun {{ $data->usia_bulan ?? 0 }} Bulan</td>
         </tr>
         <tr>
-            <td class="label">Nama Orang Tua</td>
-            <td>{{ $data->nama_orang_tua ?? '-' }}</td>
+            <td class="label-col">Nama Orang Tua</td>
+            <td class="value-col">: {{ $data->nama_orang_tua ?? '-' }}</td>
         </tr>
         <tr>
-            <td class="label">Alamat</td>
-            <td>{{ $data->alamat ?? '-' }}</td>
+            <td class="label-col">Alamat Domisili</td>
+            <td class="value-col">: {{ $data->alamat ?? '-' }}</td>
         </tr>
     </table>
 
-    <h2 class="section-title">Pemeriksaan Terakhir</h2>
+    <div class="section-header">
+        <h3>B. Pemeriksaan Terakhir</h3>
+    </div>
+
     @if ($pemeriksaan)
         <table>
             <tr>
-                <td class="label">Tanggal Pemeriksaan</td>
-                <td>{{ \Carbon\Carbon::parse($pemeriksaan->tanggal)->isoFormat('D MMMM Y') ?? '-' }}</td>
+                <td class="label-col">Tanggal Pemeriksaan</td>
+                <td class="value-col">: {{ \Carbon\Carbon::parse($pemeriksaan->tanggal)->isoFormat('dddd, D MMMM Y') }}
+                </td>
             </tr>
             <tr>
-                <td class="label">Berat Badan</td>
-                <td>{{ $pemeriksaan->berat_badan_balita ? $pemeriksaan->berat_badan_balita . ' kg' : '-' }}</td>
+                <td class="label-col">Berat Badan</td>
+                <td class="value-col">: {{ $pemeriksaan->berat_badan_balita }} kg</td>
             </tr>
             <tr>
-                <td class="label">Tinggi Badan</td>
-                <td>{{ $pemeriksaan->tinggi_badan ? $pemeriksaan->tinggi_badan . ' cm' : '-' }}</td>
+                <td class="label-col">Tinggi Badan</td>
+                <td class="value-col">: {{ $pemeriksaan->tinggi_badan }} cm</td>
             </tr>
             <tr>
-                <td class="label">Status Gizi</td>
-                <td><strong>{{ $pemeriksaan->status_gizi ?? '-' }}</strong></td>
+                <td class="label-col">Lingkar Kepala</td>
+                <td class="value-col">: {{ $pemeriksaan->lingkar_kepala ?? '-' }} cm</td>
+            </tr>
+            <tr>
+                <td class="label-col">Status Gizi</td>
+                <td class="value-col">
+                    <span class="status-badge">{{ strtoupper($pemeriksaan->status_gizi ?? '-') }}</span>
+                </td>
             </tr>
         </table>
     @else
         <div class="no-data">
-            Belum ada data pemeriksaan terakhir.
+            <strong>Belum ada data pemeriksaan terbaru.</strong><br>
+            Silakan lakukan pemeriksaan di jadwal Posyandu berikutnya.
         </div>
     @endif
 
-    <div class="footer">
-        <div class="footer-content">
-            Lohbener, {{ date('d') }} {{ \Carbon\Carbon::now()->isoFormat('MMMM') }} {{ date('Y') }}
-            <div class="signature">
-                {{ $user->name }}
+    <div class="signature-section">
+        <div class="signature-box">
+            <p>Lohbener, {{ \Carbon\Carbon::now()->isoFormat('D MMMM Y') }}</p>
+            <p>Petugas Posyandu,</p>
+
+            <div class="signature-name">
+                {{ strtoupper($petugas->name ?? 'Petugas Posyandu') }}
             </div>
         </div>
     </div>
+
+    <footer>
+        Dokumen ini digenerate secara otomatis oleh Sistem Informasi Posyandu.
+    </footer>
+
 </body>
 
 </html>

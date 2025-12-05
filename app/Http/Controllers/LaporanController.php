@@ -109,20 +109,34 @@ class LaporanController extends Controller
 
     public function exportPdf($tipe, $id)
     {
-        $user = Auth::user();
+        // HAPUS ATAU KOMENTAR BARIS INI
+        // $user = Auth::user(); 
+
+        // Siapkan variabel petugas kosong dulu untuk jaga-jaga
+        $petugas = null;
+
         if ($tipe === 'balita') {
             $data = Balita::findOrFail($id);
-            $pemeriksaan = Pemeriksaan::where('balita_id', $id)->latest()->first();
-            $pdf = Pdf::loadView('pdf.balita', compact('data', 'pemeriksaan', 'user'));
+            $pemeriksaan = Pemeriksaan::with('user')->where('balita_id', $id)->latest()->first();
+            // Jika ada pemeriksaan, ambil nama usernya. Jika tidak, kosong/null.
+            $petugas = $pemeriksaan ? $pemeriksaan->user : null;
+
+            // Kirim $petugas ke view, bukan $user login
+            $pdf = Pdf::loadView('pdf.balita', compact('data', 'pemeriksaan', 'petugas'));
+
         } elseif ($tipe === 'ibu') {
             $data = IbuHamil::findOrFail($id);
-            $pemeriksaan = Pemeriksaan::where('ibu_hamil_id', $id)->latest()->first();
-            $pdf = Pdf::loadView('pdf.ibu', compact('data', 'pemeriksaan', 'user'));
+
+            $pemeriksaan = Pemeriksaan::with('user')->where('ibu_hamil_id', $id)->latest()->first();
+
+            $petugas = $pemeriksaan ? $pemeriksaan->user : null;
+
+            $pdf = Pdf::loadView('pdf.ibu', compact('data', 'pemeriksaan', 'petugas'));
+
         } else {
             abort(404);
         }
 
-        // return $pdf->download("laporan-$tipe-$id.pdf");
         return $pdf->stream("laporan-$tipe-$id.pdf");
     }
 }

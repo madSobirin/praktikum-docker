@@ -29,5 +29,10 @@ class Pemeriksaan extends Model
     {
         return $this->belongsTo(IbuHamil::class);
     }
+
+    public function petugas()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
 
