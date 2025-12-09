@@ -95,18 +95,18 @@
 
                     <div class="overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
                         <table class="w-full text-sm text-left text-gray-700">
-                            <thead class="bg-gray-50">
+                            <thead class="bg-posyanduu">
                                 <tr class="text-left border-b text-gray-600">
                                     <th class="py-3 px-3 text-xs font-semibold uppercase"><i
-                                            class="far fa-clock mr-1 text-gray-400"></i> Waktu</th>
+                                            class="far fa-clock mr-1 text-gray-600"></i> Waktu</th>
                                     <th class="py-3 px-3 text-xs font-semibold uppercase"><i
-                                            class="fas fa-tag mr-1 text-gray-400"></i> Jenis</th>
+                                            class="fas fa-tag mr-1 text-gray-600"></i> Jenis</th>
                                     <th class="py-3 px-3 text-xs font-semibold uppercase"><i
-                                            class="fas fa-user mr-1 text-gray-400"></i> Nama Pasien</th>
+                                            class="fas fa-user mr-1 text-gray-600"></i> Nama Pasien</th>
                                     <th class="py-3 px-3 text-xs font-semibold uppercase"><i
-                                            class="fas fa-heartbeat mr-1 text-gray-400"></i> Status</th>
+                                            class="fas fa-heartbeat mr-1 text-gray-600"></i> Status</th>
                                     <th class="py-3 px-3 text-xs font-semibold uppercase text-center"><i
-                                            class="fas fa-cog mr-1 text-gray-400"></i> Aksi</th>
+                                            class="fas fa-cog mr-1 text-gray-600"></i> Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y text-gray-800">

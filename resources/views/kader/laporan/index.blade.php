@@ -30,7 +30,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
             <!-- LEFT COLUMN: PENCARIAN (4 Columns) -->
-            <div class="lg:col-span-4 space-y-6">
+            <div class="lg:col-span-5 space-y-6">
                 <div
                     class="gsap-card-left opacity-0 -translate-x-5 bg-white rounded-2xl shadow-xl border border-gray-100 p-6 h-full flex flex-col">
                     <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center border-b pb-3 border-gray-100">
@@ -121,7 +121,7 @@
             </div>
 
             <!-- RIGHT COLUMN: DETAIL & ACTION (8 Columns) -->
-            <div class="lg:col-span-8 space-y-6">
+            <div class="lg:col-span-7 space-y-6">
 
                 <!-- Card Detail -->
                 <div

@@ -58,6 +58,7 @@ class PesertaController extends Controller
                 'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
                 'alamat' => 'required|string|max:255',
                 'nama_orang_tua' => 'required|string|max:100',
+
             ]);
             // $validated['user_id'] = Auth::id();
             Balita::create($validated);
@@ -93,6 +94,9 @@ class PesertaController extends Controller
 
     public function edit($kategori, $id)
     {
+        // Ambil daftar user dengan role 'pengguna' untuk dropdown
+        $users = User::where('role', 'pengguna')->get(); //
+
         if ($kategori === 'balita') {
             $data = Balita::findOrFail($id);
         } elseif ($kategori === 'ibu_hamil') {
@@ -101,18 +105,20 @@ class PesertaController extends Controller
             return redirect()->back()->with('error', 'Kategori tidak valid!');
         }
 
-        return view('kader.edit-data', compact('data', 'kategori'));
+        // Kirim $users ke view
+        return view('kader.edit-data', compact('data', 'kategori', 'users'));
     }
 
     public function update(Request $request, $kategori, $id)
     {
-        $kategori = $request->kategori; // pastikan kategori dikirim dari form hidden
+        $kategori = $request->kategori;
         if (!$kategori) {
             return redirect()->back()->with('error', 'Kategori tidak ditemukan!');
         }
 
         if ($kategori === 'balita') {
             $validated = $request->validate([
+                'user_id' => 'required|exists:users,id', // Tambahkan validasi user_id
                 'nik' => 'required|string|max:20|unique:balitas,nik,' . $id,
                 'nama_balita' => 'required|string|max:100',
                 'usia_tahun' => 'required|integer|min:0',
@@ -127,6 +133,7 @@ class PesertaController extends Controller
 
         } elseif ($kategori === 'ibu_hamil') {
             $validated = $request->validate([
+                'user_id' => 'required|exists:users,id', // Tambahkan validasi user_id
                 'nik_ibu_hamil' => 'required|string|max:20|unique:ibu_hamils,nik_ibu_hamil,' . $id,
                 'nama_ibu_hamil' => 'required|string|max:100',
                 'nama_suami' => 'required|string|max:100',

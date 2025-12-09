@@ -1,11 +1,8 @@
 <x-app-main title="Data Peserta">
 
-    <!-- GSAP Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
     <main class="ml-2 md:ml-2 min-h-screen pb-10">
 
-        <!-- Header -->
         <div
             class="gsap-header opacity-0 translate-y-5 mb-6 flex flex-col md:flex-row md:justify-between md:items-center gap-3">
             <div>
@@ -37,60 +34,59 @@
             </script>
         @endif
 
-        <!-- Tabs -->
         <div class="gsap-tabs opacity-0 translate-y-5 bg-white rounded-xl shadow-md mb-6">
             <div class="border-b border-gray-200">
                 <nav class="flex -mb-px">
-                    <button id="balita-tab"
-                        class="tab-button py-4 px-6 text-center border-b-2 font-medium text-sm whitespace-nowrap flex items-center gap-2 text-gray-600">
+                    <button onclick="switchTab('balita')" id="balita-tab"
+                        class="tab-button py-4 px-6 text-center border-b-2 font-medium text-sm whitespace-nowrap flex items-center gap-2 text-blue-600 border-blue-600 transition-colors duration-200">
                         <i class="fas fa-baby text-blue-500"></i> Data Balita
                     </button>
-                    <button id="ibu-hamil-tab"
-                        class="tab-button py-4 px-6 text-center border-b-2 font-medium text-sm whitespace-nowrap flex items-center gap-2 text-gray-600">
+                    <button onclick="switchTab('ibu-hamil')" id="ibu-hamil-tab"
+                        class="tab-button py-4 px-6 text-center border-b-2 font-medium text-sm whitespace-nowrap flex items-center gap-2 text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300 transition-colors duration-200">
                         <i class="fas fa-female text-pink-500"></i> Data Ibu Hamil
                     </button>
                 </nav>
             </div>
         </div>
 
-        <!-- DATA BALITA -->
-        <div id="balita-content" data-content class="active">
+        <div id="balita-content" class="active">
             <div class="gsap-card opacity-0 translate-y-8 bg-white rounded-xl p-4 md:p-6 shadow-md">
 
                 <div class="overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
-                    <table class="w-full text-sm">
-                        <thead class="bg-gray-50">
-                            <tr class="text-left border-b text-gray-600">
-                                <th class="py-3 px-3 text-xs"><i class="fas fa-id-card mr-1 text-gray-400"></i> NIK</th>
-                                <th class="py-3 px-3 text-xs"><i class="fas fa-user mr-1 text-gray-400"></i> Nama</th>
-                                <th class="py-3 px-3 text-xs"><i class="fas fa-hourglass-half mr-1 text-gray-400"></i>
+                    <table class="w-full text-sm ">
+                        <thead class="bg-posyanduu border-b ">
+                            <tr class="text-left border-b text-gray-600 whitespace-nowrap">
+                                <th class="py-3 px-3 text-xs"><i class="fas fa-id-card mr-1 text-gray-600"></i> NIK</th>
+                                <th class="py-3 px-3 text-xs"><i class="fas fa-user mr-1 text-gray-600"></i> Nama</th>
+                                <th class="py-3 px-3 text-xs"><i class="fas fa-hourglass-half mr-1 text-gray-600"></i>
                                     Usia</th>
-                                <th class="py-3 px-3 text-xs"><i class="fas fa-venus-mars mr-1 text-gray-400"></i> JK
+                                <th class="py-3 px-3 text-xs"><i class="fas fa-venus-mars mr-1 text-gray-600"></i> JK
                                 </th>
-                                <th class="py-3 px-3 text-xs"><i class="fas fa-map-marker-alt mr-1 text-gray-400"></i>
+                                <th class="py-3 px-3 text-xs"><i class="fas fa-map-marker-alt mr-1 text-gray-600"></i>
                                     Alamat</th>
-                                <th class="py-3 px-3 text-xs"><i class="fas fa-users mr-1 text-gray-400"></i> Orang Tua
+                                <th class="py-3 px-3 text-xs"><i class="fas fa-users mr-1 text-gray-600"></i> Orang Tua
                                 </th>
-                                <th class="py-3 px-3 text-xs text-center"><i class="fas fa-cog mr-1 text-gray-400"></i>
+                                <th class="py-3 px-3 text-xs text-center"><i class="fas fa-cog mr-1 text-gray-600"></i>
                                     Aksi</th>
                             </tr>
                         </thead>
 
-                        <tbody class="divide-y text-gray-800">
+                        <tbody class="divide-y border-b text-gray-800 ">
                             @forelse($balitas as $balita)
-                                <tr class="row-item opacity-0 translate-y-4 hover:bg-gray-50 transition-all">
-                                    <td class="py-3 px-3">{{ $balita->nik }}</td>
-                                    <td class="py-3 px-3">{{ $balita->nama_balita }}</td>
-                                    <td class="py-3 px-3">
+                                <tr
+                                    class="row-item opacity-0 translate-y-4 hover:bg-gray-50 transition-all whitespace-nowrap">
+                                    <td class="py-3 px-3 border">{{ $balita->nik }}</td>
+                                    <td class="py-3 px-3 font-medium border">{{ $balita->nama_balita }}</td>
+                                    <td class="py-3 px-3 border">
                                         {{ $balita->usia_tahun }} th • {{ $balita->usia_bulan }} bln
                                     </td>
-                                    <td class="py-3 px-3">{{ $balita->jenis_kelamin }}</td>
-                                    <td class="py-3 px-3">{{ $balita->alamat }}</td>
-                                    <td class="py-3 px-3">{{ $balita->nama_orang_tua }}</td>
+                                    <td class="py-3 px-3 border">{{ $balita->jenis_kelamin }}</td>
+                                    <td class="py-3 px-3 max-w-xs truncate border" title="{{ $balita->alamat }}">
+                                        {{ Str::limit($balita->alamat, 30) }}</td>
+                                    <td class="py-3 px-3 border">{{ $balita->nama_orang_tua }}</td>
 
                                     <td class="py-3 px-3 text-center">
                                         <div class="flex items-center justify-center space-x-3">
-
                                             <a href="{{ route('peserta.edit', ['kategori' => 'balita', 'id' => $balita->id]) }}"
                                                 class="text-yellow-500 hover:text-yellow-600">
                                                 <i class="fas fa-edit text-sm"></i>
@@ -98,17 +94,12 @@
                                             <form
                                                 action="{{ route('peserta.destroy', ['kategori' => 'balita', 'id' => $balita->id]) }}"
                                                 method="POST" class="delete-form inline-block">
-
-                                                @csrf
-                                                @method('DELETE')
-
+                                                @csrf @method('DELETE')
                                                 <button type="button"
                                                     class="btn-delete text-red-500 hover:text-red-600">
                                                     <i class="fas fa-trash text-sm"></i>
                                                 </button>
                                             </form>
-
-
                                         </div>
                                     </td>
                                 </tr>
@@ -121,12 +112,8 @@
                     </table>
                 </div>
 
-
-
-                <!-- PAGINATION Balita -->
                 <div class="mt-6 text-sm text-gray-600 flex justify-between items-center">
                     Menampilkan {{ $balitas->lastItem() ?? 0 }} dari {{ $balitas->total() }} data balita
-
                     <div class="pagination flex space-x-2 opacity-0 translate-y-4">
                         {{ $balitas->links() }}
                     </div>
@@ -134,14 +121,13 @@
             </div>
         </div>
 
-        <!-- DATA IBU HAMIL -->
-        <div id="ibu-hamil-content" data-content>
+        <div id="ibu-hamil-content" class="hidden">
             <div class="gsap-card opacity-0 translate-y-8 bg-white rounded-xl p-4 md:p-6 shadow-md">
 
                 <div class="overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
                     <table class="w-full text-sm">
                         <thead class="bg-gray-50">
-                            <tr class="text-left border-b text-gray-600">
+                            <tr class="text-left border-b text-gray-600 whitespace-nowrap">
                                 <th class="py-3 px-3 text-xs"><i class="fas fa-id-card mr-1 text-gray-400"></i> NIK</th>
                                 <th class="py-3 px-3 text-xs"><i class="fas fa-female mr-1 text-gray-400"></i> Nama Ibu
                                 </th>
@@ -158,27 +144,25 @@
 
                         <tbody class="divide-y text-gray-800">
                             @forelse ($ibu_hamils as $ibu)
-                                <tr class="row-item opacity-0 translate-y-4 hover:bg-gray-50 transition-all">
+                                <tr
+                                    class="row-item opacity-0 translate-y-4 hover:bg-gray-50 transition-all whitespace-nowrap">
                                     <td class="py-3 px-3">{{ $ibu->nik_ibu_hamil }}</td>
-                                    <td class="py-3 px-3">{{ $ibu->nama_ibu_hamil }}</td>
+                                    <td class="py-3 px-3 font-medium">{{ $ibu->nama_ibu_hamil }}</td>
                                     <td class="py-3 px-3">{{ $ibu->nama_suami }}</td>
                                     <td class="py-3 px-3">{{ $ibu->umur }} tahun</td>
-                                    <td class="py-3 px-3">{{ $ibu->alamat_ibu_hamil }}</td>
+                                    <td class="py-3 px-3 max-w-xs truncate" title="{{ $ibu->alamat_ibu_hamil }}">
+                                        {{ Str::limit($ibu->alamat_ibu_hamil, 30) }}</td>
 
                                     <td class="py-3 px-3 text-center">
                                         <div class="flex items-center justify-center space-x-3">
-
                                             <a href="{{ route('peserta.edit', ['kategori' => 'ibu_hamil', 'id' => $ibu->id]) }}"
                                                 class="text-yellow-500 hover:text-yellow-600">
                                                 <i class="fas fa-edit text-sm"></i>
                                             </a>
-
                                             <form
                                                 action="{{ route('peserta.destroy', ['kategori' => 'ibu_hamil', 'id' => $ibu->id]) }}"
                                                 method="POST" class="inline-block delete-form">
-                                                @csrf
-                                                @method('DELETE')
-
+                                                @csrf @method('DELETE')
                                                 <button type="button"
                                                     class="btn-delete text-red-500 hover:text-red-600">
                                                     <i class="fas fa-trash text-sm"></i>
@@ -197,44 +181,8 @@
                     </table>
                 </div>
 
-                {{-- Alert delete-button --}}
-                <script>
-                    document.addEventListener('DOMContentLoaded', function() {
-
-                        const deleteButtons = document.querySelectorAll('.btn-delete');
-
-                        deleteButtons.forEach(btn => {
-                            btn.addEventListener('click', function(event) {
-                                event.preventDefault();
-
-                                const form = this.closest('.delete-form');
-
-                                Swal.fire({
-                                    title: 'Apakah Anda yakin?',
-                                    text: "Data ini akan dihapus permanen!",
-                                    icon: 'warning',
-                                    showCancelButton: true,
-                                    confirmButtonColor: '#d33',
-                                    cancelButtonColor: '#3085d6',
-                                    confirmButtonText: 'Ya, hapus!',
-                                    cancelButtonText: 'Batal'
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        form.submit();
-                                    }
-                                });
-
-                            });
-                        });
-
-                    });
-                </script>
-
-
-                <!-- PAGINATION -->
                 <div class="mt-6 text-sm text-gray-600 flex justify-between items-center">
                     Menampilkan {{ $ibu_hamils->lastItem() ?? 0 }} dari {{ $ibu_hamils->total() }}
-
                     <div class="pagination flex space-x-2 opacity-0 translate-y-4">
                         {{ $ibu_hamils->links() }}
                     </div>
@@ -244,10 +192,91 @@
         </div>
     </main>
 
-    <!-- GSAP Animasi -->
+    <script>
+        function switchTab(tabName) {
+            const balitaContent = document.getElementById('balita-content');
+            const ibuContent = document.getElementById('ibu-hamil-content');
+
+            const balitaTab = document.getElementById('balita-tab');
+            const ibuTab = document.getElementById('ibu-hamil-tab');
+
+            // Style Classes
+            const activeClass = "text-blue-600 border-blue-600";
+            const inactiveClass = "text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300";
+
+            if (tabName === 'balita') {
+                // Show Balita, Hide Ibu
+                balitaContent.classList.remove('hidden');
+                ibuContent.classList.add('hidden');
+
+                // Update Buttons
+                balitaTab.className =
+                    `tab-button py-4 px-6 text-center border-b-2 font-medium text-sm whitespace-nowrap flex items-center gap-2 transition-colors duration-200 ${activeClass}`;
+                ibuTab.className =
+                    `tab-button py-4 px-6 text-center border-b-2 font-medium text-sm whitespace-nowrap flex items-center gap-2 transition-colors duration-200 ${inactiveClass}`;
+
+                // Animasi masuk simpel saat switch
+                gsap.fromTo("#balita-content .gsap-card", {
+                    opacity: 0,
+                    y: 10
+                }, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.4
+                });
+
+            } else {
+                // Show Ibu, Hide Balita
+                ibuContent.classList.remove('hidden');
+                balitaContent.classList.add('hidden');
+
+                // Update Buttons
+                ibuTab.className =
+                    `tab-button py-4 px-6 text-center border-b-2 font-medium text-sm whitespace-nowrap flex items-center gap-2 transition-colors duration-200 ${activeClass}`;
+                balitaTab.className =
+                    `tab-button py-4 px-6 text-center border-b-2 font-medium text-sm whitespace-nowrap flex items-center gap-2 transition-colors duration-200 ${inactiveClass}`;
+
+                // Animasi masuk simpel saat switch
+                gsap.fromTo("#ibu-hamil-content .gsap-card", {
+                    opacity: 0,
+                    y: 10
+                }, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.4
+                });
+            }
+        }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const deleteButtons = document.querySelectorAll('.btn-delete');
+            deleteButtons.forEach(btn => {
+                btn.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const form = this.closest('.delete-form');
+                    Swal.fire({
+                        title: 'Apakah Anda yakin?',
+                        text: "Data ini akan dihapus permanen!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Ya, hapus!',
+                        cancelButtonText: 'Batal'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-
             const tl = gsap.timeline({
                 defaults: {
                     ease: "power3.out"
@@ -269,6 +298,7 @@
                     y: 0,
                     duration: 0.6
                 }, "-=0.4")
+                // Menggunakan class umum .gsap-card dengan stagger (sesuai request)
                 .to(".gsap-card", {
                     opacity: 1,
                     y: 0,
@@ -286,7 +316,6 @@
                     y: 0,
                     duration: 0.6
                 }, "-=0.5");
-
         });
     </script>
 

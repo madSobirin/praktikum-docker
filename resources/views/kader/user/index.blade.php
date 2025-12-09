@@ -40,12 +40,22 @@
 
                 <table class="w-full text-sm">
                     <thead class="bg-gray-50">
-                        <tr class="text-left border-b text-gray-600">
-                            <th class="py-3 px-3 whitespace-nowrap text-xs">Nama</th>
-                            <th class="py-3 px-3 whitespace-nowrap text-xs">Email</th>
-                            <th class="py-3 px-3 whitespace-nowrap text-xs">Jumlah Balita</th>
-                            <th class="py-3 px-3 whitespace-nowrap text-xs">Jumlah Ibu Hamil</th>
-                            <th class="py-3 px-3 whitespace-nowrap text-xs text-center">Aksi</th>
+                        <tr class="text-left border-b text-gray-600 bg-posyanduu">
+                            <th class="py-3 px-3 whitespace-nowrap text-xs">
+                                <i class="fas fa-user mr-1 text-gray-600"></i> Nama
+                            </th>
+                            <th class="py-3 px-3 whitespace-nowrap text-xs">
+                                <i class="fas fa-envelope mr-1 text-gray-600"></i> Email
+                            </th>
+                            <th class="py-3 px-3 whitespace-nowrap text-xs">
+                                <i class="fas fa-baby mr-1 text-gray-600"></i> Jumlah Balita
+                            </th>
+                            <th class="py-3 px-3 whitespace-nowrap text-xs">
+                                <i class="fas fa-female mr-1 text-gray-600"></i> Jumlah Ibu Hamil
+                            </th>
+                            <th class="py-3 px-3 whitespace-nowrap text-xs text-center">
+                                <i class="fas fa-cog mr-1 text-gray-600"></i> Aksi
+                            </th>
                         </tr>
                     </thead>
 

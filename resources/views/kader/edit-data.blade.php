@@ -1,7 +1,7 @@
 <x-app-main title="Edit Data Peserta">
     <main class="min-h-screen w-full bg-slate-50/50 p-4 md:p-6 lg:p-8">
 
-        <div class="mb-6">
+        <div class="mb-6 gsap-back opacity-0 -translate-x-5">
             <a href="{{ url()->previous() }}"
                 class="inline-flex items-center text-sm text-slate-500 hover:text-blue-600 transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24"
@@ -13,7 +13,8 @@
             </a>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden w-full">
+        <div
+            class="gsap-card opacity-0 translate-y-10 bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden w-full">
 
             <div class="relative bg-gradient-to-r bg-posyanduu px-6 py-8 md:px-10">
                 <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 rounded-full bg-white opacity-10 blur-xl">
@@ -23,22 +24,24 @@
 
                 <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div>
-                        <div class="flex items-center gap-3 mb-2">
+                        <div class="gsap-header-item opacity-0 translate-y-3 flex items-center gap-3 mb-2">
                             <span
                                 class="bg-white/20 backdrop-blur-sm text-white text-xs font-semibold px-2.5 py-0.5 rounded border border-white/10">
                                 {{ strtoupper(str_replace('_', ' ', $kategori)) }}
                             </span>
                         </div>
-                        <h1 class="text-3xl font-bold text-white tracking-tight">
+                        <h1
+                            class="gsap-header-item opacity-0 translate-y-3 text-3xl font-bold text-white tracking-tight">
                             Edit Data Peserta
                         </h1>
-                        <p class="text-blue-50 mt-2 text-sm md:text-base max-w-2xl">
+                        <p
+                            class="gsap-header-item opacity-0 translate-y-3 text-blue-50 mt-2 text-sm md:text-base max-w-2xl">
                             Silakan perbarui data di bawah ini. Pastikan seluruh informasi valid sebelum menyimpan
                             perubahan.
                         </p>
                     </div>
 
-                    <div class="hidden md:block opacity-90">
+                    <div class="hidden md:block opacity-90 gsap-header-icon scale-75">
                         <div class="bg-white/10 backdrop-blur-md p-3 rounded-xl border border-white/20 shadow-inner">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -65,7 +68,7 @@
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-6">
 
                         @if ($kategori === 'balita')
-                            <div class="col-span-1 lg:col-span-2">
+                            <div class="col-span-1 lg:col-span-2 gsap-input opacity-0 translate-y-5">
                                 <label for="nik" class="block text-sm font-semibold text-slate-700 mb-2">Nomor
                                     Induk Kependudukan (NIK)</label>
                                 <div class="relative">
@@ -82,7 +85,7 @@
                                 </div>
                             </div>
 
-                            <div>
+                            <div class="gsap-input opacity-0 translate-y-5">
                                 <label for="nama_balita" class="block text-sm font-semibold text-slate-700 mb-2">Nama
                                     Lengkap Balita</label>
                                 <div class="relative">
@@ -100,7 +103,7 @@
                                 </div>
                             </div>
 
-                            <div>
+                            <div class="gsap-input opacity-0 translate-y-5">
                                 <label for="jenis_kelamin" class="block text-sm font-semibold text-slate-700 mb-2">Jenis
                                     Kelamin</label>
                                 <div class="relative">
@@ -125,7 +128,7 @@
                             </div>
 
                             <div
-                                class="grid grid-cols-2 gap-4 col-span-1 lg:col-span-2 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                                class="grid grid-cols-2 gap-4 col-span-1 lg:col-span-2 p-4 bg-slate-50 rounded-xl border border-slate-200 gsap-input opacity-0 translate-y-5">
                                 <div>
                                     <label for="usia_tahun"
                                         class="block text-xs font-bold text-slate-500 uppercase mb-1">Usia
@@ -146,7 +149,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-span-1 lg:col-span-2">
+                            <div class="col-span-1 lg:col-span-2 gsap-input opacity-0 translate-y-5">
                                 <label for="nama_orang_tua"
                                     class="block text-sm font-semibold text-slate-700 mb-2">Nama Orang Tua</label>
                                 <div class="relative">
@@ -164,7 +167,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-span-1 lg:col-span-2">
+                            <div class="col-span-1 lg:col-span-2 gsap-input opacity-0 translate-y-5">
                                 <label for="alamat" class="block text-sm font-semibold text-slate-700 mb-2">Alamat
                                     Lengkap</label>
                                 <div class="relative">
@@ -174,7 +177,7 @@
                                 </div>
                             </div>
                         @elseif($kategori === 'ibu_hamil')
-                            <div class="col-span-1 lg:col-span-2">
+                            <div class="col-span-1 lg:col-span-2 gsap-input opacity-0 translate-y-5">
                                 <label for="nik_ibu_hamil" class="block text-sm font-semibold text-slate-700 mb-2">NIK
                                     Ibu Hamil</label>
                                 <div class="relative">
@@ -192,7 +195,7 @@
                                 </div>
                             </div>
 
-                            <div>
+                            <div class="gsap-input opacity-0 translate-y-5">
                                 <label for="nama_ibu_hamil"
                                     class="block text-sm font-semibold text-slate-700 mb-2">Nama Ibu Hamil</label>
                                 <div class="relative">
@@ -210,7 +213,7 @@
                                 </div>
                             </div>
 
-                            <div>
+                            <div class="gsap-input opacity-0 translate-y-5">
                                 <label for="umur" class="block text-sm font-semibold text-slate-700 mb-2">Umur
                                     (Tahun)</label>
                                 <div class="relative">
@@ -227,7 +230,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-span-1 lg:col-span-2">
+                            <div class="col-span-1 lg:col-span-2 gsap-input opacity-0 translate-y-5">
                                 <label for="nama_suami" class="block text-sm font-semibold text-slate-700 mb-2">Nama
                                     Suami</label>
                                 <div class="relative">
@@ -245,7 +248,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-span-1 lg:col-span-2">
+                            <div class="col-span-1 lg:col-span-2 gsap-input opacity-0 translate-y-5">
                                 <label for="alamat_ibu_hamil"
                                     class="block text-sm font-semibold text-slate-700 mb-2">Alamat Lengkap</label>
                                 <textarea id="alamat_ibu_hamil" name="alamat_ibu_hamil" rows="3"
@@ -255,8 +258,33 @@
                         @endif
                     </div>
 
+                    <div class="col-span-1 lg:col-span-2 gsap-input opacity-0 translate-y-5 mb-6">
+                        <label for="user_id" class="block text-sm font-semibold text-slate-700 mb-2">
+                            Akun Pemilik (Pengguna) <span class="text-red-500">*</span>
+                        </label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-user-tag text-slate-400"></i>
+                            </div>
+                            <select name="user_id" id="user_id"
+                                class="pl-10 w-full rounded-lg border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all shadow-sm py-2.5 bg-white appearance-none"
+                                required>
+                                <option value="" disabled>-- Tautkan ke Akun Pengguna --</option>
+                                @foreach ($users as $user)
+                                    <option value="{{ $user->id }}"
+                                        {{ old('user_id', $data->user_id) == $user->id ? 'selected' : '' }}>
+                                        {{ $user->name }} ({{ $user->email }})
+                                    </option>
+                                @endforeach
+                            </select>
+                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                <i class="fas fa-chevron-down text-slate-400 text-xs"></i>
+                            </div>
+                        </div>
+                    </div>
+
                     <div
-                        class="mt-8 pt-6 border-t border-slate-100 flex flex-col-reverse sm:flex-row justify-end gap-3">
+                        class="mt-8 pt-6 border-t border-slate-100 flex flex-col-reverse sm:flex-row justify-end gap-3 gsap-input opacity-0 translate-y-5">
                         <a href="{{ url()->previous() }}"
                             class="inline-flex justify-center items-center px-6 py-3 border border-slate-300 shadow-sm text-sm font-medium rounded-lg text-slate-700 bg-white hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500 transition-all">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -279,4 +307,39 @@
             </div>
         </div>
     </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const tl = gsap.timeline({
+                defaults: {
+                    ease: "power3.out",
+                    duration: 0.8
+                }
+            });
+
+            tl.to(".gsap-back", {
+                    opacity: 1,
+                    x: 0,
+                    duration: 0.5
+                })
+                .to(".gsap-card", {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.6
+                }, "-=0.3")
+                .to([".gsap-header-item", ".gsap-header-icon"], {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    stagger: 0.1,
+                    duration: 0.5
+                }, "-=0.2")
+                .to(".gsap-input", {
+                    opacity: 1,
+                    y: 0,
+                    stagger: 0.05,
+                    duration: 0.5
+                }, "-=0.3");
+        });
+    </script>
 </x-app-main>
