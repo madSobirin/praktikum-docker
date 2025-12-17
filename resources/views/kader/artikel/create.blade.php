@@ -34,7 +34,7 @@
                 <!-- Judul -->
                 <div class="mb-6">
                     <label class="block text-gray-700 text-sm font-bold mb-2">Judul Artikel</label>
-                    <input type="text" name="judul"
+                    <input type="text" name="judul" value="{{ old('judul') }}"
                         class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-posyanduu/50 focus:border-posyanduu transition-all placeholder-gray-400"
                         placeholder="Masukkan judul artikel yang menarik..." required>
                 </div>
@@ -61,7 +61,7 @@
                     <div>
                         <label class="block text-gray-700 text-sm font-bold mb-2">Penulis</label>
                         <div class="relative">
-                            <input type="text" name="penulis"
+                            <input type="text" name="penulis" value="{{ old('penulis') }}"
                                 class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-posyanduu/50 focus:border-posyanduu transition-all"
                                 placeholder="Cth: Bidan Desa" required>
                             <div
@@ -100,6 +100,12 @@
                     <p id="file-name" class="text-xs text-green-600 mt-2 font-medium hidden items-center">
                         <i class="fas fa-check-circle mr-1"></i> Gambar dipilih
                     </p>
+
+                    @error('gambar')
+                        <p class="text-red-500 text-xs mt-1 font-medium">
+                            <i class="fas fa-exclamation-circle mr-1"></i> {{ 'max 2mb' }}
+                        </p>
+                    @enderror
                 </div>
 
                 <!-- Isi Artikel -->
@@ -107,7 +113,13 @@
                     <label class="block text-gray-700 text-sm font-bold mb-2">Isi Artikel</label>
                     <textarea name="isi" rows="12"
                         class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-posyanduu/50 focus:border-posyanduu transition-all placeholder-gray-400"
-                        placeholder="Tulis konten artikel di sini..." required></textarea>
+                        placeholder="Tulis konten artikel di sini..." required>{{ old('isi') }}</textarea>
+
+                    @error('isi')
+                        <p class="text-red-500 text-xs mt-1 font-medium">
+                            <i class="fas fa-exclamation-circle mr-1"></i> {{ $message }}
+                        </p>
+                    @enderror
                 </div>
 
                 <!-- Action Buttons -->
