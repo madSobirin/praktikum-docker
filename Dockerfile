@@ -3,6 +3,8 @@ FROM php:8.2-cli
 
 # 2. Install dependensi sistem dan library untuk GD (PDF)
 RUN apt-get update && apt-get install -y \
+    ca-certificates \
+    && update-ca-certificates \
     git \
     unzip \
     libzip-dev \
