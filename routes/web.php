@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\ViewData;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ArtikelController;
@@ -28,11 +27,30 @@ Route::post('/', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
-Route::get('forgot-password', [ForgotPasswordController::class, 'showForgotPasswordForm'])->name('password.request');
-Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLink'])->name('password.email');
+// Password Reset Routes
+// 1. Form minta link (Lupa Password)
+Route::get('forgot-password', [ForgotPasswordController::class, 'showForgotPasswordForm'])
+    ->name('password.request');
 
-Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
-Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
+// 2. Kirim email linknya
+Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLink'])
+    ->name('password.email');
+
+// 3. Form ganti password (saat klik link dari email)
+// PERHATIKAN: '{token}' di sini akan otomatis menangkap token dari URL email
+Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetForm'])
+    ->name('password.reset');
+
+// 4. Proses simpan password baru
+Route::post('reset-password', [ForgotPasswordController::class, 'reset'])
+    ->name('password.update');
+
+
+// Route::get('forgot-password', [ForgotPasswordController::class, 'showForgotPasswordForm'])->name('password.request');
+// Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLink'])->name('password.email');
+
+// Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+// Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 
 Route::middleware(['auth', 'role:kader'])->group(function () {
@@ -80,18 +98,13 @@ Route::delete('/jadwal/{id}', [JadwalPosyanduController::class, 'destroy'])->nam
 
 Route::get('/jadwal/detail/{slug}', [JadwalPosyanduController::class, 'show'])->name('jadwal.show');
 
-// jangan make class
-
-// Route::get('/artikel', function () {
-//     return view('kader.artikel');
-// });
-
 // Ekspor Laporan 
 Route::controller(LaporanController::class)->group(function () {
     Route::get('/laporan', 'index')->name('laporan.index');
     Route::get('/laporan/search', 'search')->name('laporan.search')->withoutMiddleware('auth');
     Route::get('/laporan/{tipe}/{id}', 'show')->name('laporan.show');
 });
+
 // Ekspor PDF
 Route::get('/laporan/pdf/{tipe}/{id}', [LaporanController::class, 'exportPdf'])
     ->middleware('auth')

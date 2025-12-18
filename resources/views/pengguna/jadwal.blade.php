@@ -18,12 +18,12 @@
         <!-- Header Section -->
         <div id="headerBox" class="text-center mb-12 opacity-0 translate-y-10">
             <span
-                class="inline-block py-1 px-3 rounded-full bg-indigo-100 text-indigo-600 text-xs font-bold tracking-wider mb-2 border border-indigo-200 uppercase">
+                class="inline-block py-1 px-3 rounded-full bg-white text-button text-xs font-bold tracking-wider mb-2 border border-indigo-200 uppercase">
                 Posyandu Events
             </span>
             <h1 class="text-4xl md:text-5xl font-extrabold text-slate-800 tracking-tight mb-4">
                 Agenda & <span
-                    class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-600">Jadwal
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-posyanduu to-posyanduDark">Jadwal
                     Kegiatan</span>
             </h1>
             <p class="text-slate-500 text-lg max-w-2xl mx-auto">
@@ -37,7 +37,7 @@
             @forelse ($jadwals as $jadwal)
                 <!-- Card Item -->
                 <div
-                    class="jadwal-card group relative bg-white/80 backdrop-blur-md rounded-[2rem] p-6 shadow-xl border border-white/50 hover:border-indigo-300 transition-all duration-300 cursor-default opacity-0">
+                    class="jadwal-card group relative bg-white/80 backdrop-blur-md rounded-[2rem] p-6 shadow-xl border border-white/50 hover:border-posyanduu transition-all duration-300 cursor-default opacity-0">
 
                     <!-- Decorative Gradient Top -->
                     <div
@@ -51,7 +51,7 @@
                             {{ \Carbon\Carbon::parse($jadwal->waktu_mulai)->translatedFormat('M') }}
                         </span>
                         <span
-                            class="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-indigo-600 to-purple-600">
+                            class="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-posyanduu to-posyanduDark">
                             {{ \Carbon\Carbon::parse($jadwal->waktu_mulai)->translatedFormat('d') }}
                         </span>
                     </div>
@@ -60,12 +60,12 @@
                     <div class="mt-4">
                         <!-- Icon Category -->
                         <div
-                            class="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center text-xl mb-4 group-hover:rotate-12 transition-transform duration-300 shadow-sm">
+                            class="w-12 h-12 rounded-xl bg-white text-posyanduu flex items-center justify-center text-xl mb-4 group-hover:rotate-12 transition-transform duration-300 shadow-sm">
                             <i class="fas fa-calendar-alt"></i>
                         </div>
 
                         <h3
-                            class="text-xl font-bold text-slate-800 mb-2 line-clamp-2 group-hover:text-indigo-700 transition-colors">
+                            class="text-xl font-bold text-slate-800 mb-2 line-clamp-2 group-hover:text-posyanduu transition-colors">
                             {{ $jadwal->keterangan }}
                         </h3>
 
@@ -96,7 +96,7 @@
 
                         <!-- Button -->
                         <a href="{{ route('pengguna.show', $jadwal->slug) }}"
-                            class="block w-full py-3 px-4 bg-white border-2 border-slate-100 rounded-xl text-center text-slate-600 font-bold text-sm hover:bg-indigo-600 hover:border-indigo-600 hover:text-white hover:shadow-lg hover:shadow-indigo-500/30 transition-all duration-300 group-hover:-translate-y-1">
+                            class="block w-full py-3 px-4 bg-white border-2 border-slate-100 rounded-xl text-center text-slate-600 font-bold text-sm hover:bg-posyanduu hover:border-posyanduu hover:text-white hover:shadow-lg hover:shadow-buttonhover transition-all duration-300 group-hover:-translate-y-1">
                             Lihat Detail Acara <i class="fas fa-arrow-right ml-2 text-xs"></i>
                         </a>
                     </div>

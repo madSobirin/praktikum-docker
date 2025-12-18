@@ -42,7 +42,8 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
 
-            @foreach ($artikels as $artikel)
+            {{-- PERUBAHAN: Menggunakan @forelse agar bisa menangani kondisi kosong --}}
+            @forelse ($artikels as $artikel)
                 @php
                     // Logika Warna Badge & Icon berdasarkan Kategori
                     $isBalita = $artikel->kategori == 'Balita';
@@ -57,7 +58,8 @@
                         <div class="absolute top-4 left-4 z-10">
                             <span
                                 class="bg-white/90 backdrop-blur-sm text-gray-800 text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm flex items-center gap-1">
-                                <i class="fas {{ $icon }} {{ $badgeClass }}"></i> {{ $artikel->kategori }}
+                                <i class="fas {{ $icon }} {{ $badgeClass }}"></i>
+                                {{ $artikel->kategori }}
                             </span>
                         </div>
                         <img src="{{ asset('storage/' . $artikel->gambar) }}" alt="{{ $artikel->judul }}"
@@ -94,7 +96,18 @@
                         </div>
                     </div>
                 </article>
-            @endforeach
+
+            @empty
+                {{-- TAMPILAN KOSONG (Mirip Referensi) --}}
+                <div
+                    class="gsap-card opacity-0 col-span-1 md:col-span-2 py-16 text-center bg-white rounded-2xl border-2 border-dashed border-gray-200 flex flex-col items-center justify-center">
+                    <div class="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-newspaper text-gray-300 text-4xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-800">Belum ada artikel</h3>
+                    <p class="text-gray-500 text-sm mt-1">Nantikan informasi terbaru dari kami.</p>
+                </div>
+            @endforelse
 
         </div>
 

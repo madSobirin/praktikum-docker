@@ -122,7 +122,7 @@ class PesertaController extends Controller
                 'nik' => 'required|string|max:20|unique:balitas,nik,' . $id,
                 'nama_balita' => 'required|string|max:100',
                 'usia_tahun' => 'required|integer|min:0',
-                'usia_bulan' => 'nullable|integer|min:0|max:11',
+                'usia_bulan' => 'nullable|integer|min:0|max:12',
                 'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
                 'alamat' => 'required|string|max:255',
                 'nama_orang_tua' => 'required|string|max:100',

@@ -145,7 +145,7 @@
                                     <input type="number" id="usia_bulan" name="usia_bulan"
                                         value="{{ $data->usia_bulan }}"
                                         class="w-full rounded-lg border-slate-300 focus:ring-blue-500 focus:border-blue-500 shadow-sm"
-                                        min="0" max="11">
+                                        min="0" max="12">
                                 </div>
                             </div>
 

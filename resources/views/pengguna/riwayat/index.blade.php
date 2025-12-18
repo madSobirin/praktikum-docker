@@ -18,11 +18,11 @@
         <div id="headerBox" class="mb-10 text-center md:text-left opacity-0 translate-y-10">
             <div class="inline-block p-3 rounded-2xl bg-white shadow-md mb-4">
                 <i
-                    class="fas fa-heartbeat text-4xl text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-blue-600"></i>
+                    class="fas fa-heartbeat text-4xl text-transparent bg-clip-text bg-gradient-to-r from-posyanduu to-posyanduDark"></i>
             </div>
             <h1 class="text-4xl font-extrabold text-slate-800 tracking-tight">
                 Riwayat <span
-                    class="text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-blue-600">Kesehatan</span>
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-posyanduu to-posyanduDark">Kesehatan</span>
             </h1>
             <p class="text-slate-500 mt-2 text-lg max-w-2xl">
                 Pantau terus tumbuh kembang buah hati dan kesehatan ibu secara real-time.
