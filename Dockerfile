@@ -31,6 +31,9 @@ RUN npm install && npm run build
 RUN mkdir -p database && touch database/database.sqlite
 RUN chmod -R 777 storage bootstrap/cache database
 
+# Tambahkan perintah ini untuk membuat link folder storage
+RUN php artisan storage:link
+
 # 8. Railway menggunakan port dinamis ($PORT), jadi EXPOSE biasanya diabaikan
 # Namun kita tetap jalankan server menggunakan variabel lingkungan PORT
 CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT:-8080}
