@@ -28,8 +28,15 @@ class AppServiceProvider extends ServiceProvider
         ;
 
         Mail::extend('brevo', function (array $config) {
+            // Tambahkan pengecekan agar errornya lebih jelas jika key lupa diisi
+            $key = $config['key'] ?? env('BREVO_API_KEY');
+
+            if (!$key) {
+                throw new \Exception("Ahmad, BREVO_API_KEY belum diisi di Railway!");
+            }
+
             return (new BrevoTransportFactory)->create(
-                new Dsn('brevo+api', 'default', $config['key'])
+                new Dsn('brevo+api', 'default', $key)
             );
         });
     }
