@@ -97,9 +97,9 @@ return [
             'retry_after' => 60,
         ],
 
-        'sendinblue' => [
-            'transport' => 'sendinblue',
-            'key' => env('SENDINBLUE_API_KEY'),
+        'brevo' => [
+            'transport' => 'brevo',
+            'key' => env('BREVO_API_KEY'),
         ],
 
     ],
