@@ -97,8 +97,8 @@
                     </div>
                 </article>
 
+
             @empty
-                {{-- TAMPILAN KOSONG (Mirip Referensi) --}}
                 <div
                     class="gsap-card opacity-0 col-span-1 md:col-span-2 py-16 text-center bg-white rounded-2xl border-2 border-dashed border-gray-200 flex flex-col items-center justify-center">
                     <div class="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mb-4">
@@ -108,9 +108,10 @@
                     <p class="text-gray-500 text-sm mt-1">Nantikan informasi terbaru dari kami.</p>
                 </div>
             @endforelse
-
         </div>
-
+        <div class="mt-10">
+            {{ $artikels->links() }}
+        </div>
     </main>
 
     <script>

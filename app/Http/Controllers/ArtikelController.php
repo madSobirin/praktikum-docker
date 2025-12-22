@@ -11,13 +11,8 @@ class ArtikelController extends Controller
     // === BAGIAN PENGGUNA (TAMPILAN ESTETIK) ===
     public function index()
     {
-        // Ambil artikel terbaru untuk Hero Section (Data pertama)
         $heroArtikel = Artikel::latest()->first();
-
-        // Ambil sisa artikel untuk Grid (Pagination 6 item, kecuali yang jadi hero)
-        $artikels = Artikel::latest()->skip(1)->take(6)->get();
-
-        // Jika tidak ada hero (data kosong), pass null
+        $artikels = Artikel::latest()->where('id', '!=', $heroArtikel->id)->paginate(6);
         return view('pengguna.artikel.index', compact('heroArtikel', 'artikels'));
     }
 
