@@ -24,7 +24,7 @@
                         <i class="fas fa-heart-pulse text-2xl"></i>
                     </div>
                     <h2 class="text-3xl font-bold text-gray-800">Selamat Datang</h2>
-                    <p class="mt-2 text-gray-500">Silakan masuk untuk mengelola data Posyandu. INI DARI AUTOMASI CICD
+                    <p class="mt-2 text-gray-500">Silakan masuk untuk mengelola data Posyandu. INI DARI AUTOMASI CICD B
                     </p>
                 </div>
 
