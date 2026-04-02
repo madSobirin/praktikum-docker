@@ -1,44 +1,50 @@
-# 1. Gunakan PHP 8.2 CLI sebagai base
-FROM php:8.2-cli
+# Dockerfile
+FROM php:8.2-fpm-alpine
 
-# 2. Install dependensi sistem dan driver MySQL (PENTING!)
-RUN apt-get update && apt-get install -y \
-    git \
-    unzip \
-    libzip-dev \
+# Install dependencies sistem
+RUN apk add --no-cache \
+    nginx \
+    nodejs \
+    npm \
     curl \
+    zip \
+    unzip \
+    git \
+    supervisor \
     libpng-dev \
-    libjpeg62-turbo-dev \
-    libfreetype6-dev \
-    ca-certificates \
-    && update-ca-certificates \
-    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y nodejs \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    # Tambahkan pdo_mysql untuk MySQL dan hapus pdo_sqlite
-    && docker-php-ext-install zip pdo pdo_mysql gd
+    libzip-dev \
+    oniguruma-dev \
+    libxml2-dev
 
-# 3. Ambil Composer dari image resmi
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+# Install ekstensi PHP
+RUN docker-php-ext-install \
+    pdo_mysql \
+    mbstring \
+    exif \
+    pcntl \
+    bcmath \
+    gd \
+    opcache \
+    zip
 
-# 4. Set working directory
-WORKDIR /var/www
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# 5. Copy seluruh file project
+WORKDIR /var/www/html
+
+# Copy file project
 COPY . .
 
-# 6. Install PHP dependencies
-# Pastikan kamu sudah menjalankan 'composer require symfony/sendinblue-mailer' di lokal sebelum push
-RUN composer install --no-dev --optimize-autoloader
+# Install dependencies Laravel
+RUN composer install --optimize-autoloader --no-dev
 
-# 7. Build Vite (untuk CSS/JS) agar tampilan tidak rusak
-RUN npm install && npm run build
+# Set permission
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-# 8. Setup Permissions
-RUN mkdir -p storage/framework/sessions storage/framework/views storage/framework/cache \
-    && php artisan storage:link \
-    && chmod -R 777 storage bootstrap/cache
+# Copy konfigurasi Nginx dan Supervisor
+COPY docker/nginx.conf /etc/nginx/nginx.conf
+COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-# 9. Jalankan aplikasi
-# Perintah migrate akan otomatis lari ke MySQL Railway
-CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT:-8080}
+EXPOSE 80
+
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
